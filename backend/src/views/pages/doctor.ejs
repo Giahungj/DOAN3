@@ -1,0 +1,39 @@
+<div class="row m-2 p-2 border border-0 rounded shadow bg-white caption-top">
+    <span class="text-gray-600 text-start p-0">Thông Tin Tổng Quát</span>
+    <hr>
+    <div class="d-flex justify-content-around align-items-end">
+        <div>
+            <p class="m-1 fs-6 text-blue-300">Bác sĩ làm việc hôm nay</p>
+            <p class="m-1 fs-6 fw-bold text-blue-600">100</p>
+        </div>
+        <div>
+            <p class="m-1 fs-6 text-yellow-300">Tổng số bác sĩ</p>
+            <p class="m-1 fs-6 fw-bold text-yellow-600" id="totalDoctors"></p>
+        </div>
+        <div>
+            <p class="m-1 fs-6 text-orange-300">Bác sĩ làm việc tháng này</p>
+            <p class="m-1 fs-6 fw-bold text-orange-600">100</p>
+        </div>
+    </div>
+</div>
+<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
+    <table class="table table-borderless caption-top">
+        <caption>Danh sách bác sĩ<hr class="m-0"></caption>
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="row p-2 row-cols-md-4 g-1" id="doctorTable">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- <div class="row m-2 p-2 border border-0 rounded shadow bg-white"> --> 
+    <!-- <%- include('./panigation.ejs') %> -->
+<!-- </div>

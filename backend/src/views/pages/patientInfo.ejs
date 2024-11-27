@@ -1,0 +1,45 @@
+<div class="container-fluid p-5" id="admin-background">
+    <div class="overflow-hidden mx-5 border border-0 rounded-2 shadow">
+        <div class="row g-0">
+            <div class="col-2 overflow-hidden">
+                <%- include('../partials/sidebarMenu.ejs') %>
+            </div>
+            <div class="col-10">
+                <div class="row g-0">
+                    <%- include('../partials/header.ejs') %>
+                </div>
+                
+                <div class="row g-0">
+                    <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
+                        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin bệnh nhân</p>
+                        <div id="contentArea">
+                            <div class="row m-0">
+                                <div class="row">
+                                    <div class="col-8 text-start border border-0 rounded shadow bg-white">
+                                    </div>
+                                    <div class="col text-start  border border-0 rounded shadow bg-white">
+                                        <% if (patientInfo) { %>
+                                            <p class="fs-6 text-center">
+                                                Bệnh nhân <span class="fw-bold fs-5"><%= patientInfo.user.name %></span>
+                                                <i class="fas fa-edit fw-light text-cyan-400" style="cursor: pointer;" title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
+                                            </p>
+                                            <p class="m-0">Mã số bảo hiểm: <%= patientInfo.health_insurance_code %></p>
+                                            <p class="m-0">Tuổi: <%= patientInfo.age %> tuổi</p>
+                                            <p class="m-0">Giới tính: <%= patientInfo.user.gender %> tuổi</p>
+                                            <p class="m-0">Ngày sinh: <%= patientInfo.user.day_of_birth %></p>
+                                            <p class="m-0">Điện thoại: <%= patientInfo.user.phone_number %></p>
+                                            <p class="m-0">Địa chỉ: <%= patientInfo.user.address %></p>
+                                            <p class="m-0">CMND/CCCD: <%= patientInfo.user.citizen_id_card %></p>
+                                        <% } else { %>
+                                            <p class="fs-6 m-0">Không có Bệnh nhân</p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

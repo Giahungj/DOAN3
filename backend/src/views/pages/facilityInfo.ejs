@@ -1,0 +1,46 @@
+<div class="container-fluid p-5" id="admin-background">
+    <div class="overflow-hidden mx-5 border border-0 rounded-2 shadow">
+        <div class="row g-0">
+            <div class="col-2 overflow-hidden">
+                <%- include('../partials/sidebarMenu.ejs') %>
+            </div>
+            <div class="col-10">
+                <div class="row g-0">
+                    <%- include('../partials/header.ejs') %>
+                </div>
+                <div class="row g-0">
+                    <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
+                        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin cơ sở y tế</p>
+                        <div id="contentArea">
+                            <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
+                                <% if (facilityInfo) { %>
+                                    <span class="text-gray-600 text-start p-0">Cơ sở <%- facilityInfo.facility_name %></span>
+                                <% } else { %>
+                                    <span class="text-gray-600 text-start p-0">Không tìm thấy thông tin Cơ sở Y tế này!</span>
+                                <% } %>
+                                <hr class="m-0">
+                                <div class="row g-2">
+                                    <div class="col text-start">
+                                        <% if (facilityInfo) { %>
+                                            <h6><%= facilityInfo.facility_name %></h6>
+                                            <p class="m-0">
+                                                <i class="fas fa-map-marker-alt m-1"></i> Địa chỉ: <%= facilityInfo.facility_address %>
+                                              </p>
+                                              
+                                            <p class="m-0">
+                                                <i class="fas fa-phone-alt m-1"></i> 
+                                                Hotline: <%= facilityInfo.facility_contact_number %>
+                                            </p>
+                                        <% } else { %>
+                                            <p class="fs-6 m-0">Không có cơ sở y tế</p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="d-flex flex-column flex-shrink-0 py-3 h-100 bg-white bg-opacity-50">
+    <a class="d-flex justify-content-center" aria-current="page" href="http://localhost:3000/">
+        <div class="border border-0 rounded-circle w-25 overflow-hidden">
+            <img class="img-fluid" src="/images/logos/LOGO.png" alt="Logo QuickCare" style="max-height: 10rem;">
+        </div>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column px-2" id="sideBarMenu">
+        <li class="nav-item">
+            <a href="/admin" class="nav-link link-dark exclude-link" id="dashboarLinkID" aria-current="page" page-title="dashboard">
+                <i class="fa-solid fa-tachometer-alt me-2"></i>
+                Bảng điều khiển
+            </a>
+        </li>
+        <li>
+            <a href="/api/benh-nhan" class="nav-link link-dark" id="patientLinkID" page-title="patient-manager"
+            data-target-id="patientTable">
+                <i class="fa-solid fa-users me-2"></i>
+                Quản lý bệnh nhân
+            </a>
+        </li>
+        <li>
+            <a href="/api/bac-si" class="nav-link link-dark" id="doctorLinkID" page-title="doctor-manager"
+            data-target-id="doctorTable">
+                <i class="fa-solid fa-user-md me-2"></i>
+                Quản lý bác sĩ
+            </a>
+        </li>
+        <li>
+            <a href="/admin/chuyen-khoa" class="nav-link link-dark" id="specialtyLinkID" page-title="specialty-manager"
+            data-target-id="specialTable">
+                <i class="fa-solid fa-briefcase-medical me-2"></i>
+                Quản lý chuyên khoa
+            </a>
+        </li>
+        <li>
+            <a href="/admin/appointments" class="nav-link link-dark" id="appointmentLinkID" page-title="appointment-manager"
+            data-target-id="appointmentTable">
+                <i class="fa-solid fa-calendar-check me-2"></i>
+                Quản lý lịch
+            </a>
+        </li>
+        <li>
+            <a href="/admin/co-so-y-te" class="nav-link link-dark" id="facilityLinkID" page-title="medical-facility-manager"
+            data-target-id="facilityTable">
+                <i class="fa-solid fa-calendar-alt me-2"></i>
+                Quản lý y tế
+            </a>
+        </li>
+        <li>
+            <a href="/admin/services" class="nav-link link-dark" id="serviceLinkID" page-title="service-manager">
+                <i class="fa-solid fa-stethoscope me-2"></i>
+                Quản lý dịch vụ
+            </a>
+        </li>
+        <li>
+            <a href="/admin/settings" class="nav-link link-dark">
+                <i class="fa-solid fa-cogs me-2"></i>
+                Cài đặt
+            </a>
+        </li>
+        <li>
+            <a href="/admin/logout" class="nav-link link-dark">
+                <i class="fa-solid fa-sign-out-alt me-2"></i>
+                Đăng xuất
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <a href="/admin" class="d-flex justify-content-center align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://via.placeholder.com/32" alt="User Avatar" width="32" height="32" class="rounded-circle me-2">
+            <strong>Tên người dùng</strong>
+        </a>
+        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
+            <li><a class="dropdown-item" href="/admin">New Project</a></li>
+            <li><a class="dropdown-item" href="/admin">Settings</a></li>
+            <li><a class="dropdown-item" href="/admin">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/admin">Sign out</a></li>
+        </ul>
+    </div>
+</div>

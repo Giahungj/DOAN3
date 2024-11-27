@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-7 m-2 p-3 border border-0 rounded shadow bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-2 ms-3">
+            <span class="fs-6 fw-bold text-gray-900 text-center">Thống kê theo tháng</span>
+            <a class="link-dark" href="/admin">Chi tiết</a>
+        </div>
+        <canvas class="w-100" id="monthlyChart" height="400"></canvas>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-outline-success w-50 mx-3">
+                <span class="fs-5 fw-bold">1,202</span>
+                <hr class="m-0">
+                <span class="fs-7">Đã khám</span>
+            </div>
+            <div class="btn btn-outline-secondary w-50 mx-3">
+                <span class="fs-5 fw-bold">50</span>
+                <hr class="m-0">
+                <span class="fs-7">Đăng ký khám</span>
+            </div>
+        </div>
+    </div>
+    <div class="col m-2 p-3 border border-0 rounded shadow bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-2 ms-3">
+            <span class="fs-6 fw-bold text-gray-900 text-center">Thống kê tuổi</span>
+            <a class="link-dark" href="/admin" page-title="patient-manager" data-target-id="patientTable">
+                Chi tiết
+            </a>
+        </div>
+        <canvas class="w-100" id="specialtyChart" height="400"></canvas>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-outline-success w-50 mx-3">
+                <span class="fs-5 fw-bold">1,202</span>
+                <hr class="m-0">
+                <span class="fs-7">Đã khám</span>
+            </div>
+            <div class="btn btn-outline-secondary w-50 mx-3">
+                <span class="fs-5 fw-bold">50</span>
+                <hr class="m-0">
+                <span class="fs-7">Đăng ký khám</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-7 m-2 p-3 border border-0 rounded shadow bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-2 ms-3">
+            <span class="fs-6 fw-bold text-gray-900 text-center">Bác sĩ</span>
+            <a href="#" class="nav-link none-hover" id="doctorLinkID" page-title="doctor-manager"
+            data-target-id="doctorTable">
+                Chi tiết
+            </a>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <span>Tổng số bác sĩ</span>
+                    <p id="totalDoctors"></p>
+                </div>
+                <div class="row">
+                    <span>Bác sĩ nữ</span>
+                    <p id="femaleDoctorPercentage"></p>
+                </div>
+                <div class="row">
+                    <span>Bác sĩ Nam</span>
+                    <p id="maleDoctorPercentage"></p>
+                </div>
+                <div class="row">
+                    <span>Khác</span>
+                    <p id="otherDoctorPercentage"></p>
+                </div>
+            </div>
+            <div class="col">
+                <canvas id="myChart" width="400" height="600"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col m-2 p-2 border border-0 rounded shadow bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-2 ms-3">
+            <span class="fs-6 fw-bold text-gray-900 text-center">Thống kê bác sĩ</span>
+            <a class="link-dark" href="/admin">Chi tiết</a>
+        </div>
+        <canvas class="w-100" id="eduChart" height="400"></canvas>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <div class="btn btn-outline-success w-50 mx-3">
+                <span class="fs-5 fw-bold">1,202</span>
+                <hr class="m-0">
+                <span class="fs-7">Đã khám</span>
+            </div>
+            <div class="btn btn-outline-secondary w-50 mx-3">
+                <span class="fs-5 fw-bold">50</span>
+                <hr class="m-0">
+                <span class="fs-7">Đăng ký khám</span>
+            </div>
+        </div>
+    </div>
+</div>
