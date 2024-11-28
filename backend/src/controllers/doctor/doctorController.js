@@ -13,7 +13,7 @@ import { Sequelize, DataTypes } from 'sequelize'
 setupAssociations()
 
 const getDoctorsPage = (req, res) => {
-  res.render('pages/doctor.ejs', { title: 'Trang bác sĩ' })
+  return res.render('pages/doctor.ejs', { title: 'Trang bác sĩ' })
 }
 
 // -----------------------------------------
@@ -79,7 +79,7 @@ const getDoctors = async (req, res) => {
       })),
     }))
 
-    res.json(
+    return res.json(
       {
         doctorsData,
         currentPage: page,
@@ -183,7 +183,7 @@ const getDoctorStatistics = async (req, res) => {
     const femalePercentage = totalCount > 0 ? ((femaleCount / totalCount) * 100) : 0;
     const malePercentage = totalCount > 0 ? ((maleCount / totalCount) * 100) : 0;
     const otherPercentage = totalCount > 0 ? ((otherCount / totalCount) * 100) : 0;
-    res.json({
+    return res.json({
       totalDoctorsCount: totalCount,
       femalePercentage,
       malePercentage,

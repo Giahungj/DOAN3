@@ -1,27 +1,57 @@
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white caption-top">
-    <span class="text-gray-600 text-start p-0">Thông Tin Tổng Quát</span>
+    <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
     <hr>
-    <div class="d-flex justify-content-around align-items-end">
-        <div>
-            <p class="m-1 fs-6 text-yellow-300">Tổng số cơ sở y tế</p>
-            <p class="m-1 fs-6 fw-bold text-yellow-600" id="totalFacilities"></p>
+    <div class="d-flex justify-content-around align-items-center">
+        <div class="me-2 w-25 p-2 border border-dark boder-2 rounded">
+            <i class="fs-1 fas fa-clinic-medical text-blue-500"></i>
+            <p class="m-1 fs-5 text-blue-600">Tổng số cơ sở - 
+                <span class="fs-5 fw-bold text-blue-500" id="totalFacilities">5</span>
+            </p>
+        </div>
+        <div class="me-2 w-25 p-2 border border-dark boder-2 rounded">
+            <i class="fs-1 fas fa-hospital text-orange-500"></i>
+            <p class="m-1 fs-5 text-orange-600">Bệnh viện - 
+                <span class="fs-5 fw-bold text-orange-500" id="totalHospitals">5</span>
+            </p>
+        </div>
+        <div class="me-2 w-25 p-2 border border-dark boder-2 rounded">
+            <i class="fs-1 fas fa-user-md text-pink-500"></i>
+            <p class="m-1 fs-5 text-pink-600">Phòng khám - 
+                <span class="fs-5 fw-bold text-pink-500" id="totalClinics">5</span>
+            </p>
+        </div>
+        <div class="me-2 w-25 p-2 border border-dark boder-2 rounded">
+            <i class="fs-1 fas fa-medkit text-green-500"></i>
+            <p class="m-1 fs-5 text-green-600">Trung tâm y tế - 
+                <span class="fs-5 fw-bold text-green-500" id="totalHealthCenters">5</span>
+            </p>
+        </div>
+        <div class="me-2 w-25 p-2 border border-dark boder-2 rounded">
+            <i class="fs-1 fas fa-map-marker-alt text-red-500"></i>
+            <p class="m-1 fs-5 text-red-600">Khu vực - 
+                <span class="fs-5 fw-bold text-red-500" id="totalAreas">5</span>
+            </p>
         </div>
     </div>
 </div>
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
-    <table class="table table-borderless caption-top">
-        <caption>Danh sách các cơ sở y tế<hr class="m-0"></caption>
-        <thead>
+    <table class="table table-striped table-bordered table-hover caption-top">
+        <caption>DANH SÁCH CÁC CƠ SỞ Y TẾ<hr class="m-0"></caption>
+        <thead class="table-info">
             <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Tên phòng khám</th>
+                <th class="text-center">Địa chỉ</th>
+                <th class="text-center">Số điện thoại</th>
+                <th class="text-center">Danh mục</th>
+                <th class="text-center">Tùy chọn</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="row p-2 row-cols-md-4 g-1" id="facilityTable">
-                    </div>
-                </td>
-            </tr>
+        <tbody id="facilityTable">
         </tbody>
     </table>
+
+    <nav id="paginationArea">
+        Phân trang
+    </nav>
 </div>

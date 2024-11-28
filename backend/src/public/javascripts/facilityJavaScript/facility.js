@@ -1,41 +1,30 @@
-const loadFacilityData = async() => {
+const loadFacilityData = async(page) => {
     try {
         console.log('Bắt đầu fetch các data')
-        const response = await fetch('http://localhost:6969/api/co-so-y-te')
+        const response = await fetch(`http://localhost:6969/api/co-so-y-te/?page=${page}`)
         if (!response.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const facilities = await response.json()
+        const { facilityData, currentPage, totalPages } = await response.json()
         const facilityTable = document.getElementById('facilityTable')
+        const paginationArea = document.getElementById('paginationArea')
 
-        if (!facilities) return console.log('Lỗi rồi ní')
+        if (!facilityData) return console.log('Lỗi rồi ní')
 
         facilityTable.innerHTML = ''
-        let i = 1
-        facilities.forEach(facility => {
+        paginationArea.innerHTML = ''
+        const itemsPerPage = 10
+        let i = (currentPage - 1) * itemsPerPage + 1
+        facilityData.forEach(facility => {
             const card = `
-            <form method="POST" id="form-${facility.medical_facility_id}" style="display: none;">
-                <input type="hidden" name="medical_facility_id" value="${facility.medical_facility_id}">
-            </form>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h6 class="card-title">${facility.facility_name}</h6>
-                        <p class="card-text text-start">
-                            <i class="fas fa-map-marker-alt"></i> Địa chỉ: ${facility.facility_address}
-                        </p>
-                        <p class="card-text text-start">
-                            <i class="fas fa-tags"></i> Danh mục: ${facility.facility_category}
-                        </p>
-                        <p class="card-text text-start">
-                            <i class="fas fa-phone-alt"></i> Số điện thoại liên lạc: ${facility.facility_contact_number}
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a class="text-decoration-none nav-link cursor-pointer" onclick="submitFacilityForm('form-${facility.medical_facility_id}')">Xem</a>
-                    </div>
-                </div>
-            </div>
+                <tr class="text-start cursor-pointer" onclick="window.location='/admin/co-so-y-te/thong-tin/${facility.medical_facility_id}'">
+                    <td class="text-center">${i}</td>
+                    <td>${facility.facility_name}</td>
+                    <td>${facility.facility_address}</td>
+                    <td>${facility.facility_contact_number}</td>
+                    <td>${facility.facility_category}</td>
+                    <td class="text-center"><a href="/admin/co-so-y-te/thong-tin/${facility.medical_facility_id}">Xem thêm</a></td>
+                </tr>
             `
             facilityTable.innerHTML += card
             i += 1
@@ -45,10 +34,48 @@ const loadFacilityData = async() => {
         if (!response2.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const { totalFacilitiesCount } = await response2.json()
+        const { totalFacCount } = await response2.json()
 
         const totalFacilities = document.getElementById('totalFacilities')
-        totalFacilities.innerText = totalFacilitiesCount
+        totalFacilities.innerText = totalFacCount
+
+        paginationArea.innerHTML = `
+            <ul class="pagination justify-content-end">
+                ${currentPage > 1 ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadFacilityData(${currentPage - 1})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" onclick="loadFacilityData(${currentPage})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                }
+
+                ${Array.from({ length: totalPages }, (_, i) => i + 1).map(page => `
+                    <li class="page-item ${page === currentPage ? 'active' : ''}">
+                        <a class="page-link" onclick="loadFacilityData(${page})" href="#">${page}</a>
+                    </li>
+                `).join('')}
+
+                ${currentPage < totalPages ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadFacilityData(${currentPage + 1})" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                }
+            </ul>
+            `
     } catch (error) {
         console.error('Error fetching facilities:', error)
     }

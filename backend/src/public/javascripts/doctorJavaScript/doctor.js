@@ -16,10 +16,7 @@ const loadDoctorData = async (page) => {
         doctorsData.forEach(doctor => {
             const specialties = doctor.specialties.map(specialty => specialty.special_name).join(', ')
             const card = `
-                <form method="POST" style="display: none;" id="form-${doctor.doctor_id}">
-                    <input type="hidden" name="doctor_id" value="${doctor.doctor_id}">
-                </form>
-                <a class="text-decoration-none nav-link cursor-pointer" onclick="submitDoctorForm('form-${doctor.doctor_id}')">
+                <a class="text-decoration-none nav-link cursor-pointer" href"/admin/bac-si/thong-tin/${doctor.doctor_id}">
                     <div class="col">
                         <div class="card h-100">
                             <div class="overflow-hidden" style="height: 15rem">

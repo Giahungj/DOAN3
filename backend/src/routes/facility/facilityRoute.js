@@ -7,6 +7,6 @@ const router = express.Router()
 router.get("/", facilityController.getFacilitiesPage)
 
 // -----------------------------------------
-router.post("/thong-tin", facilityController.getFacilityInfoPage)
+router.get("/thong-tin/:medical_facility_id", facilityController.getFacilityInfoPage)
 
 export default router

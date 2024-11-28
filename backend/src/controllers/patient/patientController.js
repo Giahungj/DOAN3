@@ -4,7 +4,7 @@ import Appointment from '../../models/appointmentModel'
 
 const getPatientsPage = async(req, res) => {
     try {
-        res.render('pages/patient.ejs', { title: 'Quản lý bệnh nhân'})
+      return res.render('pages/patient.ejs', { title: 'Quản lý bệnh nhân'})
     } catch (error) {
         console.error(error)
         return res.status(500).send('Đã xảy ra lỗi')
@@ -33,9 +33,9 @@ const getPatients = async (req, res) => {
             }
         })
         
-        res.json(patientsData)
+        return res.json(patientsData)
     } catch (error) {
-        res.status(500).json({ message: error.message })
+      return res.status(500).json({ message: error.message })
     }
 }
 
@@ -51,7 +51,7 @@ const getPatientStatistics = async (req, res) => {
     try {
       const totalCount = await Patient.count()
       console.log(totalCount)
-      res.json({
+      return res.json({
           totalPatientsCount: totalCount,
       })
     } catch (error) {

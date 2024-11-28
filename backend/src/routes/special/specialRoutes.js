@@ -7,6 +7,6 @@ const router = express.Router()
 router.get("/", specialtyController.getSpecialtiesPage)
 
 // -----------------------------------------
-router.post("/thong-tin", specialtyController.getSpecialInfoPage)
+router.get("/thong-tin/:special_id", specialtyController.getSpecialInfoPage)
 
 export default router

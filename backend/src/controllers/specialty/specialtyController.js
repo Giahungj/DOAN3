@@ -1,26 +1,16 @@
+import { Sequelize, DataTypes } from 'sequelize';
+
 // Thiết lập Model
 import Doctor from '../../models/doctorModel'
 import Specialty from '../../models/specialtyModel'
 import DoctorSpecialty from '../../models/doctorSpecialtyModel'
 
 // -----------------------------------------
-
-//          RENDER DANH SACH CHUYEN KHOA
-// -----------------------------------------
-
 const getSpecialtiesPage = (req, res) => {
-  res.render('pages/special.ejs', { title: 'Trang chuyên khoa' })
+  return res.render('pages/special.ejs', { title: 'Trang chuyên khoa' })
 }
-// ===========================================================================================================================
-
-
-
 
 // -----------------------------------------
-
-//          RENDER CHI TIET CHUYEN KHOA
-// -----------------------------------------
-
 const getSpecialInfoPage = async (req, res) => {
   try {
     const special_id = req.body.special_id
@@ -30,78 +20,63 @@ const getSpecialInfoPage = async (req, res) => {
     console.error(error)
   }
 }
-// ===========================================================================================================================
-
-
-
 
 // -----------------------------------------
-
-//          RES.JSON THONG KE CHUYEN KHOA
-// -----------------------------------------
-
 const getSpecialtyStatistics = async (req, res) => {
   try {
     const totalCount = await Specialty.count()
 
-    res.json({
+    return res.json({
       totalSpecialtiesCount: totalCount,
   })
   } catch (error) {
     console.error(error)
   }
 }
-// ===========================================================================================================================
-
-
-
 
 // -----------------------------------------
-
-//          RES.JSON DANH SACH BAC SI
-// -----------------------------------------
-
-// Lấy danh sách chuyên khoa
 const getSpecialties = async (req, res) => {
-    try {
-        const specialties = await Specialty.findAll({
-            limit: 8,
-            include: [
-                {
-                model: Doctor,
-                through: DoctorSpecialty, 
-                as: 'doctors'
-                }
-            ]
-        })
+  try {
+    const page = parseInt(req.query.page) || 1
+    const limit = 10
+    const offset = (page - 1) * limit
+    const specialties = await Specialty.findAll({
+      limit: 8,
+      offset: offset,
+      include: [
+        {
+        model: Doctor,
+        through: DoctorSpecialty, 
+        as: 'doctors'
+        }
+      ],
+    })
 
-        const specialtiesData = specialties.map(special => ({
-            special_id: special.special_id,
-            special_name: special.special_name,
-            description: special.description,
-            special_image: special.special_image,
-            created_at: special.createdAt,
-            updated_at: special.updatedAt
+    const totalSpecialties = await Specialty.count()
+    const totalPages = Math.ceil(totalSpecialties / limit)
+
+    const specialtiesData = specialties.map(special => ({
+        special_id: special.special_id,
+        special_name: special.special_name,
+        description: special.description,
+        special_image: special.special_image,
+        created_at: special.createdAt,
+        updated_at: special.updatedAt,
+        doctors: special.doctors.map(doctor => ({
+          doctor_id: doctor.doctor_id
         }))
+    }))
 
-
-        res.json({ specialtiesData });
-    } catch (error) {
-        console.error(error)
-    }
+    return res.json({ specialtiesData, currentPage: page, totalPages });
+  } catch (error) {
+      console.error(error)
+  }
 }
-// ===========================================================================================================================
-
-
-
 
 // -----------------------------------------
-
-//          TRA VE CHI TIET BAC SI
-// -----------------------------------------
-
 const getSpecialInfo = async(req, res, special_id) => {
   try {
+    const special_id = req.params.special_id || special_id
     const specialtyInfo = await Specialty.findOne({
       where: {
         special_id: special_id
@@ -133,10 +108,6 @@ const getSpecialInfo = async(req, res, special_id) => {
     console.error(error)
   }
 }
-// ===========================================================================================================================
-
-
-
 
 export default { 
     getSpecialtiesPage,

@@ -1,7 +1,6 @@
 // Load dữ liệu của toàn bộ bác sĩ
 const loadAppointmentData = async (page) => {
     try {
-        console.log(page)
         const response = await fetch(`http://localhost:6969/api/lich-hen/?page=${page}`)
         if (!response.ok) {
             throw new Error('Phản hồi không ok cho lắm')
@@ -16,10 +15,12 @@ const loadAppointmentData = async (page) => {
         appointmentTable.innerHTML = ''
         paginationArea.innerHTML = ''
 
-        let i = 1
+        const itemsPerPage = 10
+        let i = (currentPage - 1) * itemsPerPage + 1
+        
         appointmentsData.forEach(appointment => {
             const row = `
-            <tr class="appointment-row" onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
+            <tr onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
                 <td>${i}</td>
                 <td class="text-start ${
                     appointment.approval_status === 'pending'
@@ -38,7 +39,7 @@ const loadAppointmentData = async (page) => {
                 <td class="text-start">${appointment.appointment_time}</td>
                 <td class="text-start">${appointment.facility_address}</td>
                 <td class="text-start">${appointment.doctor_name}</td>
-                <td colspan="5">
+                <td>
                     <a href="/admin/lich-hen/thong-tin/${ appointment.appointment_id }" class="text-decoration-none" title="Cập nhật thêm">
                         <i class="fas fa-edit fs-5 text-teal-300 me-2"></i>
                     </a>

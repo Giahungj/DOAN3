@@ -1,27 +1,31 @@
-<div class="row m-2 p-2 border border-0 rounded shadow bg-white caption-top">
-    <span class="text-gray-600 text-start p-0">Thông Tin Tổng Quát</span>
+<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
+    <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
     <hr>
-    <div class="d-flex justify-content-around align-items-end">
-        <div>
-            <p class="m-1 fs-6 text-yellow-300">Tổng số chuyên khoa</p>
-            <p class="m-1 fs-6 fw-bold text-yellow-600" id="totalSpecialties"></p>
+    <div class="d-flex justify-content-around align-items-center">
+        <div class="me-2 w-25 p-2 border border-primary boder-2 rounded">
+            <i class="fs-1 fas fa-calendar-alt text-blue-500"></i>
+            <p class="m-1 fs-6 text-blue-600">Tổng số chuyên khoa - 
+                <span class="fs-5 fw-bold text-blue-500" id="totalSpecialties"></span>
+            </p>
         </div>
     </div>
 </div>
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
-    <table class="table table-borderless caption-top">
-        <caption>Danh sách chuyên khoa<hr class="m-0"></caption>
-        <thead>
-            <tr>
+    <table class="table table-bordered table-striped caption-top table-hover">
+        <caption>DANH SÁCH CHUYÊN KHOA<hr class="m-0"></caption>
+        <thead class="table-warning">
+            <tr class="text-center">
+                <th>STT</th>
+                <th>Tên chuyên khoa</th>
+                <th>Ngày tạo</th>
+                <th>Bác sĩ thuộc chuyên khoa</th>
+                <th>Tùy chỉnh</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="row p-2 row-cols-md-4 g-1" id="specialTable">
-                    </div>
-                </td>
-            </tr>
+        <tbody id="specialTable">
         </tbody>
     </table>
+
+    <nav id="paginationArea">
+    </nav>
 </div>

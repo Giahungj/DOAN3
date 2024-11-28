@@ -13,7 +13,7 @@ import timeSlotController from '../../controllers/timeSlotController'
 
 // -----------------------------------------
 const getAppointmentsPage = (req, res) => {
-  res.render('pages/appointment.ejs', { title: 'Trang lịch hẹn' })
+  return res.render('pages/appointment.ejs', { title: 'Trang lịch hẹn' })
 }
 
 // -----------------------------------------
@@ -73,7 +73,7 @@ const getAppointments = async (req, res) => {
       facility_address: app.doctor.facility.address,
     }))
 
-    res.json({ appointmentsData, currentPage: page, totalPages })
+    return res.json({ appointmentsData, currentPage: page, totalPages })
   } catch (error) {
     console.error(error)
   }
@@ -157,12 +157,12 @@ const getAppointmentStatistics = async (req, res) => {
     const pendingCount = await Appointment.count({ where: { approval_status: 'pending' } })
     const rejectedCount = await Appointment.count({ where: { approval_status: 'rejected' } })
 
-    res.json({
+    return res.json({
       totalAppCount: totalCount,
       approvedCount,
       pendingCount,
       rejectedCount
-  })
+    })
   } catch (error) {
     console.error(error)
   }

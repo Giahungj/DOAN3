@@ -1,34 +1,36 @@
 // Load dữ liệu của toàn bộ chuyên khoa
-const loadSpecialData = async () => {
+const loadSpecialData = async (page) => {
     try {
-        const response = await fetch('http://localhost:6969/api/chuyen-khoa')
+        const response = await fetch(`http://localhost:6969/api/chuyen-khoa/?page=${page}`)
         if (!response.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const specialties = await response.json()
+        const { specialtiesData, currentPage, totalPages } = await response.json()
 
         const specialTable = document.getElementById('specialTable')
+        const paginationArea = document.getElementById('paginationArea')
+
         if (!specialTable) return
+
         specialTable.innerHTML = ''
-        let i = 1
-        specialties.specialtiesData.forEach(special => {
+        paginationArea.innerHTML = ''
+
+        const itemsPerPage = 10
+        let i = (currentPage - 1) * itemsPerPage + 1
+
+        specialtiesData.forEach(special => {
             const card = `
-            <form method="POST" id="form-${special.special_id}" style="display: none;">
-                <input type="hidden" name="special_id" value="${special.special_id}">
-            </form>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h6 class="card-title">${special.special_name}</h6>
-                        <p class="card-text">${special.description}</p>
-                        <p class="card-text">${special.created_at}</p>
-                        <p class="card-text">${special.updated_at}</p>
-                    </div>
-                    <div class="card-footer">
-                        <a class="text-decoration-none nav-link cursor-pointer" onclick="submitSpecialtyForm('form-${special.special_id}')">Xem</a>
-                    </div>
-                </div>
-            </div>
+            <tr class="cursor-pointer" onclick="window.location='/admin/chuyen-khoa/thong-tin/${special.special_id}'">
+                <td class="text-center">${i}</td>
+                <td class="text-start">${special.special_name}</td>
+                <td class="text-start">${special.created_at}</td>
+                <td class="text-start">${special.doctors.length}</td>
+                <td>
+                    <a href="/admin/chuyen-khoa/thong-tin/${special.special_id}" class="text-decoration-none" title="Cập nhật thêm">
+                        <i class="fas fa-edit fs-5 text-teal-300 me-2"></i>
+                    </a>
+                </td>
+            </tr>
             `
             specialTable.innerHTML += card
             i += 1
