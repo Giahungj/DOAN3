@@ -13,7 +13,7 @@ const loadPatientData = async() => {
         let i = 1
         patients.forEach(patient => {
             const row = `
-                <tr>
+                <tr class="cursor-pointer" onclick="window.location='/admin/benh-nhan/thong-tin/${patient.patient_id}'">
                     <td>${i}</td>
                     <td>${patient.name}</td>
                     <td>${patient.health_insurance_code}</td>

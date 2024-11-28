@@ -9,7 +9,11 @@ import Appointment from '../models/appointmentModel'
 import Users from '../models/usersModel'
 import TimeSlot from '../models/timeSlotModel'
 
+// Controller
 import timeSlotController from './timeSlotController'
+
+// Định dạng
+import { formatDate } from '../utils/formatUtils'
 
 // -----------------------------------------
 const getAppointmentsPage = (req, res) => {
@@ -48,18 +52,6 @@ const getAppointments = async (req, res) => {
         { model: TimeSlot, as: 'timeSlot' }
       ],
       order: [['updatedAt', 'DESC']],
-      attributes: {
-        include: [
-          [
-            Sequelize.fn('DATE_FORMAT', Sequelize.col('createdAt'), '%Y-%m-%d %H:%i:%s'),
-            'createdAt'
-          ],
-          [
-            Sequelize.fn('DATE_FORMAT', Sequelize.col('updatedAt'), '%Y-%m-%d %H:%i:%s'),
-            'updatedAt'
-          ]
-        ]
-      }
     })
 
     const totalAppointments = await Appointment.count()
@@ -69,7 +61,7 @@ const getAppointments = async (req, res) => {
       appointment_id: app.appointment_id,
       doctor_name: app.doctor.user.name,
       approval_status: app.approval_status,
-      appointment_time: app.appointment_time,
+      appointment_time: formatDate(app.appointment_time),
       facility_address: app.doctor.facility.address,
     }))
 
@@ -83,7 +75,7 @@ const getAppointments = async (req, res) => {
 const getAppointment = async(req, res, app_id) => {
   try {
     const appointment_id = req.params.appointment_id || app_id;
-    const appointmentData = await Appointment.findOne({
+    const appointment = await Appointment.findOne({
       where: { appointment_id },
       include: [
         {
@@ -101,24 +93,13 @@ const getAppointment = async(req, res, app_id) => {
         },
         { model: TimeSlot, as: 'timeSlot' }
       ],
-      attributes: {
-        include: [
-          [
-            Sequelize.fn('DATE_FORMAT', Sequelize.col('createdAt'), '%H:%i %d-%m-%Y'),
-            'createdAt'
-          ],
-          [
-            Sequelize.fn('DATE_FORMAT', Sequelize.col('updatedAt'), '%H:%i %d-%m-%Y'),
-            'updatedAt'
-          ]
-        ]
-      }
     })
     const timeSlotData = await timeSlotController.getTimeSlotList()
     // Kiểm tra nếu không tìm thấy dữ liệu
-    if (!appointmentData) {
+    if (!appointment) {
       return getAppointmentInfoPage(req, res, 'Không tìm thấy lịch hẹn', '', '')
     }
+    const appointmentData = { ... appointment, appointment_time: formatDate(appointment.appointment_time), createdAt: formatDate(appointment.createdAt), updatedAt: formatDate(appointment.updatedAt) }
 
     return getAppointmentInfoPage(req, res, 'Thông tin lịch hẹn', appointmentData, timeSlotData)
   } catch (error) {

@@ -20,7 +20,7 @@ const loadAppointmentData = async (page) => {
         
         appointmentsData.forEach(appointment => {
             const row = `
-            <tr onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
+            <tr class="cursor-pointer" onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
                 <td>${i}</td>
                 <td class="text-start ${
                     appointment.approval_status === 'pending'

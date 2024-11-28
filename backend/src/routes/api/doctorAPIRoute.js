@@ -6,6 +6,6 @@ const router = express.Router();
 router.get("/", doctorController.getDoctors)
 router.get("/so-luong", doctorController.getDoctorStatistics)
 
-router.post("/thong-tin-bac-si", doctorController.getDoctorInfo)
+router.post("/thong-tin", doctorController.getDoctorInfo)
 
 export default router

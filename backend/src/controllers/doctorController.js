@@ -9,6 +9,10 @@ import setupAssociations from '../models/associations'
 
 import { Sequelize, DataTypes } from 'sequelize'
 
+// Định dạng
+import { formatDate } from '../utils/formatUtils'
+import { formatCurrency } from '../utils/formatUtils'
+
 // Thiết lập mối quan hệ
 setupAssociations()
 
@@ -18,7 +22,8 @@ const getDoctorsPage = (req, res) => {
 
 // -----------------------------------------
 const getDoctorInfoPage = async (req, res) => {
-  const doctor_id = await req.params.doctor_id
+  const doctor_id = await req.query.doctor_id
+  console.log(doctor_id)
   const docInfo = await getDoctorInfo(req, res, doctor_id)
   console.log(docInfo)
   return res.render('pages/doctorInfo.ejs', { title: 'Thông tin bác sĩ', docInfo })
@@ -54,22 +59,14 @@ const getDoctors = async (req, res) => {
 
     const totalDoctors = await Doctor.count()
     const totalPages = Math.ceil(totalDoctors / limit)
-    doctors.forEach(doctor => {
-      if (doctor.appointments && doctor.appointments.length > 0) {
-        console.log(doctor.doctor_id)
-        doctor.appointments.forEach(appointment => {
-          console.table([appointment.dataValues]);
-        });
-      }
-    });
 
     const doctorsData = doctors.map(doctor => ({
       doctor_id: doctor.doctor_id,
       licence_number: doctor.licence_number,
       introduction: doctor.introduction,
       working_schedule: doctor.working_schedule,
-      price_vietnamese: doctor.price_vietnamese,
-      price_foreigners: doctor.price_foreigners,
+      price_vietnamese: formatCurrency(doctor.price_vietnamese, 'VND'),
+      price_foreigners: formatCurrency(doctor.price_foreigners, 'USD'),
       work_experience: doctor.work_experience,
       education: doctor.education,
       doctor_name: doctor.user.name,
@@ -107,30 +104,10 @@ const getDoctorInfo = async(req, res, doctor_id) => {
         {
           model: Users,
           as: 'user',
-          attributes: {
-            include: [
-              [
-                Sequelize.fn('DATE_FORMAT', Sequelize.col('user.day_of_birth'), '%d-%m-%Y'),
-                'day_of_birth'
-              ]
-            ]
-          }
         },
         {
           model: Appointment,
           as: 'appointments',
-          attributes: {
-            include: [
-              [
-                Sequelize.fn('DATE_FORMAT', Sequelize.col('appointments.createdAt'), '%d-%m-%Y'),
-                'createdAt'
-              ],
-              [
-                Sequelize.fn('DATE_FORMAT', Sequelize.col('appointments.updatedAt'), '%d-%m-%Y'),
-                'updatedAt'
-              ]
-            ]
-          }
         },
         {
           model: Facility,
@@ -149,23 +126,30 @@ const getDoctorInfo = async(req, res, doctor_id) => {
       licence_number: docInfo.licence_number,
       introduction: docInfo.introduction,
       working_schedule: docInfo.working_schedule,
-      price_vietnamese: docInfo.price_vietnamese,
-      price_foreigners: docInfo.price_foreigners,
+      price_vietnamese: formatCurrency(docInfo.price_vietnamese, 'VND'),
+      price_foreigners: formatCurrency(docInfo.price_foreigners, 'USD'),
       work_experience: docInfo.work_experience,
       education: docInfo.education,
       gender: docInfo.gender,
-      user: docInfo.user,
+      user: {
+        user_id: docInfo.user.user_id,
+        role: docInfo.user.role,
+        gender: docInfo.user.gender,
+        user_id: docInfo.user.user_id,
+        phone_number: docInfo.user.phone_number,
+        address: docInfo.user.address,
+        citizen_id_card: docInfo.user.citizen_id_card,
+        day_of_birth: formatDate(docInfo.user.day_of_birth)
+      },
       specialties: docInfo.specialties.map(spec => spec.special_name),
       appointments: docInfo.appointments.map(app => ({
         appointment_id: app.appointment_id,
-        appointment_time: app.appointment_time,
-        createdAt: app.createdAt,
-        updatedAt: app.updatedAt
+        appointment_time: formatDate(app.appointment_time),
+        createdAt: formatDate(app.createdAt),
+        updatedAt: formatDate(app.updatedAt)
       }))
     }
 
-    console.table([docInfo.dataValues])
-    
     return formattedDocInfo
   } catch (error) {
     console.error(error)

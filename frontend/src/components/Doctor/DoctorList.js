@@ -18,6 +18,19 @@ const DoctorList = () => {
                   throw new Error(`HTTP error! status: ${response.status}`);
               }
               const data = await response.json();
+              console.log(data)
+              const doctorsData = data.map(doctor => ({
+                doctor_id: doctor.doctor_id,
+                licence_number: doctor.licence_number,
+                introduction: doctor.introduction,
+                working_schedule: doctor.working_schedule,
+                price_vietnamese: doctor.price_vietnamese,
+                price_foreigners: doctor.price_foreigners,
+                work_experience: doctor.work_experience,
+                education: doctor.education,
+                doctor_name: doctor.user.name,
+                doctor_avatar: doctor.user.avatar,
+              }))
               setDoctors(data);
           } catch (err) {
               setError(err.message);
@@ -42,7 +55,7 @@ const DoctorList = () => {
     // Hiển thị danh sách người dùng
     return (
         <ul>
-            {doctors.map(doctor => (
+            {doctorsData.map(doctor => (
                 <li key={doctor.doctor_id}>
                     {doctor.licence_number}, 
                     {doctor.introduction}, 

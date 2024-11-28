@@ -6,7 +6,6 @@ const loadDoctorData = async (page) => {
             throw new Error('Phản hồi không ok cho lắm')
         }
         const { doctorsData, currentPage, totalPages } = await response.json()
-        console.log(currentPage, totalPages)
         const paginationArea = document.getElementById('paginationArea')
         const doctorTable = document.getElementById('doctorTable')
         if (!doctorTable) return
@@ -16,7 +15,10 @@ const loadDoctorData = async (page) => {
         doctorsData.forEach(doctor => {
             const specialties = doctor.specialties.map(specialty => specialty.special_name).join(', ')
             const card = `
-                <a class="text-decoration-none nav-link cursor-pointer" href"/admin/bac-si/thong-tin/${doctor.doctor_id}">
+                <a class="text-decoration-none nav-link cursor-pointer" onclick="submitDoctorForm('form-${doctor.doctor_id}')">
+                <form method="GET" id="form-${doctor.doctor_id}">
+                    <input type="hidden" name="doctor_id" value="${doctor.doctor_id}"></input>
+                </form>
                     <div class="col">
                         <div class="card h-100">
                             <div class="overflow-hidden" style="height: 15rem">

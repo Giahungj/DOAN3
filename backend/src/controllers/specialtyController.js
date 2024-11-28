@@ -109,6 +109,20 @@ const getSpecialInfo = async(req, res, special_id) => {
   }
 }
 
+const addSpecial = async(req, res) => {
+  try {
+    const { special_name, description, special_image } = req.body;
+    if (!special_name || !description || !special_image) {
+      return res.render('pages/addSpecial.ejs', { title: 'Thêm Chuyên Khoa', error: 'Vui lòng điền đầy đủ thông tin.' });
+    }
+    const newSpecialty = await Specialty.create({ special_name, description, special_image });
+    res.redirect(`/admin/co-so-y-te/chuyen-khoa/${newSpecialty.special_id}`);
+  } catch (error) {
+    console.error(error);
+    res.render('pages/addSpecial.ejs', { title: 'Thêm Chuyên Khoa', error: 'Đã có lỗi xảy ra, vui lòng thử lại.' });
+  }
+}
+
 export default { 
     getSpecialtiesPage,
     getSpecialInfoPage,
@@ -117,4 +131,5 @@ export default {
 
     getSpecialties,
     getSpecialInfo,
+    addSpecial
 };

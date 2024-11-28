@@ -114,8 +114,10 @@
                                 <div class="col m-1">
                                     <div class="row mb-2 p-2 border border-0 border-white rounded shadow-sm bg-white text-gray-600 text-start">
                                         <div>
-                                            <a href="/admin/bac-si/thong-tin/<%= appointmentData.doctor_id %>" class="text-center text-blue-400"><h5>Bác sĩ</h5></a>
-                                        
+                                            <a onclick='submitDoctorForm("form-<%= appointmentData.doctor.doctor_id %>")' class="text-center cursor-pointer text-blue-400"><h5>Bác sĩ</h5></a>
+                                            <form method="GET" id="form-<%= appointmentData.doctor.doctor_id %>">
+                                                <input type="hidden" name="doctor_id" value="<%= appointmentData.doctor.doctor_id %>"></input>
+                                            </form>
                                             <% if (appointmentData) { %>
                                                 <p class="ms-1 mb-0 fs-6">
                                                     <i class="fas fa-user-md m-1"></i> <strong>Họ và tên:</strong> <%= appointmentData.doctor.user.name %>
