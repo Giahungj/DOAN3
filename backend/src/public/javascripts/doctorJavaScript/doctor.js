@@ -1,16 +1,19 @@
 // Load dữ liệu của toàn bộ bác sĩ
-const loadDoctorData = async () => {
+const loadDoctorData = async (page) => {
     try {
-        const response = await fetch('http://localhost:6969/api/bac-si')
+        const response = await fetch(`http://localhost:6969/api/bac-si/?page=${page}`)
         if (!response.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const doctors = await response.json()
-
+        const { doctorsData, currentPage, totalPages } = await response.json()
+        console.log(currentPage, totalPages)
+        const paginationArea = document.getElementById('paginationArea')
         const doctorTable = document.getElementById('doctorTable')
         if (!doctorTable) return
+
         doctorTable.innerHTML = ''
-        doctors.doctorsData.forEach(doctor => {
+        paginationArea.innerHTML = ''
+        doctorsData.forEach(doctor => {
             const specialties = doctor.specialties.map(specialty => specialty.special_name).join(', ')
             const card = `
                 <form method="POST" style="display: none;" id="form-${doctor.doctor_id}">
@@ -73,6 +76,44 @@ const loadDoctorData = async () => {
             doctorTable.innerHTML += card
         })
 
+        paginationArea.innerHTML = `
+            <ul class="pagination justify-content-end">
+                ${currentPage > 1 ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadDoctorData(${currentPage - 1})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" onclick="loadDoctorData(${currentPage})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                }
+
+                ${Array.from({ length: totalPages }, (_, i) => i + 1).map(page => `
+                    <li class="page-item ${page === currentPage ? 'active' : ''}">
+                        <a class="page-link" onclick="loadDoctorData(${page})" href="#">${page}</a>
+                    </li>
+                `).join('')}
+
+                ${currentPage < totalPages ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadDoctorData(${currentPage + 1})" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                }
+            </ul>
+        `
+
         // Bắt tất cả các thẻ doctor-card
         const allDoctorCards = document.querySelectorAll('.doctor-card-img');
         allDoctorCards.forEach(card => {
@@ -85,11 +126,11 @@ const loadDoctorData = async () => {
             }
         })
 
-        const response2 = await fetch('http://localhost:6969/api/bac-si/so-luong')
-        if (!response2.ok) {
+        const doctorStatistics = await fetch('http://localhost:6969/api/bac-si/so-luong')
+        if (!doctorStatistics.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const { totalDoctorsCount } = await response2.json()
+        const { totalDoctorsCount } = await doctorStatistics.json()
 
         const totalDoctors = document.getElementById('totalDoctors')
         totalDoctors.innerText = totalDoctorsCount

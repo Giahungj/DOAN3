@@ -47,18 +47,8 @@ const Appointment = sequelize.define('Appointment', {
         defaultValue: 'pending',
         allowNull: false,
     },
-    created_at: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        defaultValue: Sequelize.NOW,
-        allowNull: false,
-    },
 }, {
-    timestamps: false,
+    timestamps: true,
     tableName: 'Appointment',
 });
 

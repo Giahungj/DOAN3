@@ -4,5 +4,6 @@ import appointmentController from '../../../controllers/appointment/appointmentC
 const router = express.Router();
 
 router.get("/", appointmentController.getAppointments)
+router.get("/thong-ke", appointmentController.getAppointmentStatistics)
 
 export default router

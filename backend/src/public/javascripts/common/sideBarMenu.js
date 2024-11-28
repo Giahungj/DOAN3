@@ -71,22 +71,6 @@ const setActiveLink = () => {
         updateContent(pageTitle)
         getDataTable(dataTarget)
     })
-
-    const paginationArea = document.getElementById('paginationArea')
-    paginationArea.addEventListener('click', (event) => {
-
-        event.preventDefault()
-        
-        const pageLink = event.target.closest('.page-link')
-        const pageTitle = pageLink.getAttribute('page-title')
-        const dataTarget = pageLink.getAttribute('data-target-id')
-
-        console.log(pageLink)
-
-        setPageTitle(pageTitle)
-        updateContent(pageTitle)
-        getDataTable(dataTarget)
-    })
 }
 
 // Hàm cập nhật nội dung trang theo title
@@ -108,22 +92,21 @@ const updateContent = (pageTitle) => {
 // Hàm lấy dữ liệu cho các trang
 const getDataTable = async (dataTarget) => {
     if (!dataTarget) return
-    
     switch (dataTarget) {
         case 'patientTable':
-            loadPatientData()
+            loadPatientData(1)
             break;
         case 'doctorTable':
-            loadDoctorData()
+            loadDoctorData(1)
             break;
         case 'specialTable':
-            loadSpecialData()
+            loadSpecialData(1)
             break;
         case 'facilityTable':
-            loadFacilityData()
+            loadFacilityData(1)
             break;
         case 'appointmentTable':
-            loadAppointmentData()
+            loadAppointmentData(1)
             break;
         default:
             return;

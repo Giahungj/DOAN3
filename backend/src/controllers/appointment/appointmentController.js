@@ -1,3 +1,5 @@
+import { Sequelize, DataTypes } from 'sequelize';
+
 import Doctor from '../../models/doctorModel'
 import Patient from '../../models/patientModel'
 import Specialty from '../../models/specialtyModel'
@@ -24,7 +26,7 @@ const getAppointmentInfoPage = (req, res, title, appointmentData, timeSlotData) 
 const getAppointments = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1
-    const limit = 2
+    const limit = 10
     const offset = (page - 1) * limit
     const appointments = await Appointment.findAll({
       limit: limit,
@@ -44,7 +46,20 @@ const getAppointments = async (req, res) => {
           include: [{ model: Users, as: 'user' }]
         },
         { model: TimeSlot, as: 'timeSlot' }
-      ]
+      ],
+      order: [['updatedAt', 'DESC']],
+      attributes: {
+        include: [
+          [
+            Sequelize.fn('DATE_FORMAT', Sequelize.col('createdAt'), '%Y-%m-%d %H:%i:%s'),
+            'createdAt'
+          ],
+          [
+            Sequelize.fn('DATE_FORMAT', Sequelize.col('updatedAt'), '%Y-%m-%d %H:%i:%s'),
+            'updatedAt'
+          ]
+        ]
+      }
     })
 
     const totalAppointments = await Appointment.count()
@@ -85,7 +100,19 @@ const getAppointment = async(req, res, app_id) => {
           include: [{ model: Users, as: 'user' }]
         },
         { model: TimeSlot, as: 'timeSlot' }
-      ]
+      ],
+      attributes: {
+        include: [
+          [
+            Sequelize.fn('DATE_FORMAT', Sequelize.col('createdAt'), '%H:%i %d-%m-%Y'),
+            'createdAt'
+          ],
+          [
+            Sequelize.fn('DATE_FORMAT', Sequelize.col('updatedAt'), '%H:%i %d-%m-%Y'),
+            'updatedAt'
+          ]
+        ]
+      }
     })
     const timeSlotData = await timeSlotController.getTimeSlotList()
     // Kiểm tra nếu không tìm thấy dữ liệu
@@ -122,11 +149,31 @@ const updateAppointment = async(req, res) => {
   }
 }
 
+// -----------------------------------------
+const getAppointmentStatistics = async (req, res) => {
+  try {
+    const totalCount = await Appointment.count()
+    const approvedCount = await Appointment.count({ where: { approval_status: 'approved' } })
+    const pendingCount = await Appointment.count({ where: { approval_status: 'pending' } })
+    const rejectedCount = await Appointment.count({ where: { approval_status: 'rejected' } })
+
+    res.json({
+      totalAppCount: totalCount,
+      approvedCount,
+      pendingCount,
+      rejectedCount
+  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 // ===========================================================================================================================
 export default { 
   getAppointmentsPage,
   getAppointmentInfoPage,
 
   getAppointments,
-  getAppointment, updateAppointment
+  getAppointment,
+  updateAppointment,
+  getAppointmentStatistics
 }

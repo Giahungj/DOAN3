@@ -25,48 +25,86 @@
                                                     <span class="text-red-400"><%= appointmentData.appointment_id %></span>
                                                 <% } %>
                                             </h5>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <span><i class="fas fa-user-md me-2"></i> Bác sĩ:</span>
-                                                <span><%= appointmentData.doctor.user.name %></span>
-                                            </p>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <i class="fas fa-user-injured me-2"></i> Bệnh nhân: <%= appointmentData.patient.user.name %>
-                                            </p>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <i class="fas fa-check-circle me-2 text-success"></i> Trạng thái: 
-                                                <% if (appointmentData.approval_status === 'approved') { %>
-                                                    <strong class="text-success">Đã xác nhận</strong>
-                                                <% } else if (appointmentData.approval_status === 'pending') { %>
-                                                    <strong class="text-warning">Đang chờ xác nhận</strong>
-                                                <% } else { %>
-                                                    <strong class="text-danger">Từ chối</strong>
-                                                <% } %>
-                                            </p>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <i class="fas fa-calendar-check me-2"></i> Ngày khám: 
-                                                <% if (appointmentData.approval_status === 'approved') { %>
-                                                    <span class="text-green-400"><%= appointmentData.appointment_time %></span>
-                                                <% } else if (appointmentData.approval_status === 'pending') { %>
-                                                    <span class="text-yellow-400"><%= appointmentData.appointment_time %></span>
-                                                <% } else { %>
-                                                    <span class="text-red-400"><%= appointmentData.appointment_time %></span>
-                                                <% } %>
-                                            </p>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <i class="fas fa-map-marker-alt me-2"></i> Địa chỉ khám: <%= appointmentData.doctor.facility.address %>
-                                            </p>
-                                            <p class="ms-4 mb-0 fs-6">
-                                                <i class="fas fa-clock me-2"></i> Thời gian khám:
-                                                <% if (appointmentData.approval_status === 'approved') { %>
-                                                    <strong class="text-green-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
-                                                <% } else if (appointmentData.approval_status === 'pending') { %>
-                                                    <strong class="text-yellow-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
-                                                <% } else { %>
-                                                    <strong class="text-red-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
-                                                <% } %>
-                                            </p>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-user-md me-2"></i> Bác sĩ:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="fs-6"><%= appointmentData.doctor.user.name %></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-user-injured me-2"></i> Bệnh nhân:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="fs-6"><%= appointmentData.patient.user.name %></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-check-circle me-2 text-success"></i> Trạng thái:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <% if (appointmentData.approval_status === 'approved') { %>
+                                                        <strong class="fs-6 text-success">Đã xác nhận</strong>
+                                                    <% } else if (appointmentData.approval_status === 'pending') { %>
+                                                        <strong class="fs-6 text-warning">Đang chờ xác nhận</strong>
+                                                    <% } else { %>
+                                                        <strong class="fs-6 text-danger">Từ chối</strong>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-calendar-check me-2"></i> Ngày khám:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <% if (appointmentData.approval_status === 'approved') { %>
+                                                        <span class="fs-6 text-green-400"><%= appointmentData.appointment_time %></span>
+                                                    <% } else if (appointmentData.approval_status === 'pending') { %>
+                                                        <span class="fs-6 text-yellow-400"><%= appointmentData.appointment_time %></span>
+                                                    <% } else { %>
+                                                        <span class="fs-6 text-red-400"><%= appointmentData.appointment_time %></span>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-map-marker-alt me-2"></i> Địa chỉ khám:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <span class="fs-6"><%= appointmentData.doctor.facility.address %></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <span class="fs-6"><i class="fas fa-clock me-2"></i> Thời gian khám:</span>
+                                                </div>
+                                                <div class="col">
+                                                    <% if (appointmentData.approval_status === 'approved') { %>
+                                                        <strong class="fs-6 text-green-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
+                                                    <% } else if (appointmentData.approval_status === 'pending') { %>
+                                                        <strong class="fs-6 text-yellow-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
+                                                    <% } else { %>
+                                                        <strong class="fs-6 text-red-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                                
+                                            <p class="my-1 ms-3"><i class="fas fa-calendar-check me-2"></i> Thời gian tạo: <%= appointmentData.createdAt %></p>
+                                            <p class="my-1 ms-3"><i class="fas fa-sync-alt me-2"></i> Thời gian cập nhật: <%= appointmentData.updatedAt %></p>
+
                                             <div class="d-grid gap-2">
-                                                <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Thay đổi thông tin lịch hẹn</button>
+                                                <button type="button" id="updateAppModalBtn" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#updateAppModel">
+                                                    Thay đổi thông tin lịch hẹn
+                                                </button>
                                             </div>
                                         <% } else { %>
                                             <p class="fs-6 m-0">Không có Lịch hẹn</p>
@@ -133,7 +171,7 @@
 
     
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateAppModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -7,6 +7,8 @@ import Facility from '../../models/medicalFacilityModel'
 import Users from '../../models/usersModel'
 import setupAssociations from '../../models/associations'
 
+import { Sequelize, DataTypes } from 'sequelize'
+
 // Thiết lập mối quan hệ
 setupAssociations()
 
@@ -18,14 +20,19 @@ const getDoctorsPage = (req, res) => {
 const getDoctorInfoPage = async (req, res) => {
   const doctor_id = await req.params.doctor_id
   const docInfo = await getDoctorInfo(req, res, doctor_id)
+  console.log(docInfo)
   return res.render('pages/doctorInfo.ejs', { title: 'Thông tin bác sĩ', docInfo })
 }
 
 // -----------------------------------------
 const getDoctors = async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1
+    const limit = 8
+    const offset = (page - 1) * limit
     const doctors = await Doctor.findAll({
-      limit: 8,
+      limit: limit,
+      offset: offset,
       include: [
         {
           model: Specialty,
@@ -37,9 +44,24 @@ const getDoctors = async (req, res) => {
           model: Users,
           attributes: ['name', 'avatar'],
           as: 'user'
+        },
+        {
+          model: Appointment,
+          as: "appointments",
         }
       ]
     })
+
+    const totalDoctors = await Doctor.count()
+    const totalPages = Math.ceil(totalDoctors / limit)
+    doctors.forEach(doctor => {
+      if (doctor.appointments && doctor.appointments.length > 0) {
+        console.log(doctor.doctor_id)
+        doctor.appointments.forEach(appointment => {
+          console.table([appointment.dataValues]);
+        });
+      }
+    });
 
     const doctorsData = doctors.map(doctor => ({
       doctor_id: doctor.doctor_id,
@@ -55,12 +77,15 @@ const getDoctors = async (req, res) => {
       specialties: doctor.specialties.map(specialty => ({
         special_name: specialty.special_name
       })),
-      schedule_id: doctor.schedule_id
     }))
 
-    res.json({
-      doctorsData
-    });
+    res.json(
+      {
+        doctorsData,
+        currentPage: page,
+        totalPages
+      }
+    )
   } catch (error) {
     console.error(error)
   }
@@ -81,11 +106,31 @@ const getDoctorInfo = async(req, res, doctor_id) => {
         },
         {
           model: Users,
-          as: 'user'
+          as: 'user',
+          attributes: {
+            include: [
+              [
+                Sequelize.fn('DATE_FORMAT', Sequelize.col('user.day_of_birth'), '%d-%m-%Y'),
+                'day_of_birth'
+              ]
+            ]
+          }
         },
         {
           model: Appointment,
-          as: 'appointments'
+          as: 'appointments',
+          attributes: {
+            include: [
+              [
+                Sequelize.fn('DATE_FORMAT', Sequelize.col('appointments.createdAt'), '%d-%m-%Y'),
+                'createdAt'
+              ],
+              [
+                Sequelize.fn('DATE_FORMAT', Sequelize.col('appointments.updatedAt'), '%d-%m-%Y'),
+                'updatedAt'
+              ]
+            ]
+          }
         },
         {
           model: Facility,
@@ -114,12 +159,12 @@ const getDoctorInfo = async(req, res, doctor_id) => {
       appointments: docInfo.appointments.map(app => ({
         appointment_id: app.appointment_id,
         appointment_time: app.appointment_time,
-        created_at: app.created_at,
-        updated_at: app.updated_at
+        createdAt: app.createdAt,
+        updatedAt: app.updatedAt
       }))
     }
 
-    console.log(docInfo)
+    console.table([docInfo.dataValues])
     
     return formattedDocInfo
   } catch (error) {
