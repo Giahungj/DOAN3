@@ -1,18 +1,19 @@
-<div class="row m-2 p-2 border border-0 rounded shadow bg-white">
-    <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
-    <hr>
-    <div class="d-flex justify-content-around align-items-center">
-        <div class="me-2 w-25 p-2 border border-primary boder-2 rounded">
-            <i class="fs-1 fas fa-calendar-alt text-blue-500"></i>
-            <p class="m-1 fs-6 text-blue-600">Tổng số chuyên khoa - 
-                <span class="fs-5 fw-bold text-blue-500" id="totalSpecialties"></span>
-            </p>
+<div class="row  p-2">
+    <div class="d-flex justify-content-end align-items-center">
+        <div class="btn-group btn-group-sm" role="group">
+            <button type="button" id="addSpecModalBtn" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addSpecModel">
+                <i class="fs-1 fas fa-square-plus"></i>
+            </button>
+            <button type="button" class="btn btn-danger"><i class="fs-1 fas fa-square-plus"></i></button>
+            <button type="button" class="btn btn-success"><i class="fs-1 fas fa-square-plus"></i></button>
         </div>
     </div>
 </div>
+
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
     <table class="table table-bordered table-striped caption-top table-hover">
-        <caption>DANH SÁCH CHUYÊN KHOA<hr class="m-0"></caption>
+        <caption>DANH SÁCH CHUYÊN KHOA - TỔNG SỐ CHUYÊN KHOA <strong id="totalSpecialties"></strong>
+        </caption>
         <thead class="table-warning">
             <tr class="text-center">
                 <th>STT</th>
@@ -28,4 +29,43 @@
 
     <nav id="paginationArea">
     </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addSpecModel" tabindex="-1" aria-labelledby="addSpecModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSpecModelLabel">THÊM CHUYÊN KHOA</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="/admin/co-so-y-te/them">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col d-flex align-items-center">
+                            <div class="mb-3">
+                                <label for="special_image" class="form-label">Ảnh chuyên khoa</label>
+                                <input type="file" class="form-control" name="special_image" id="special_image" accept="image/*" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="special_name" class="form-label">Tên chuyên khoa</label>
+                                <input type="text" class="form-control" name="special_name" value="" required>
+                            </div>
+        
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Mô tả chuyên khoa</label>
+                                <textarea class="form-control" name="description" id="description" rows="4" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

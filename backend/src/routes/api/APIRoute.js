@@ -1,9 +1,9 @@
 import express from 'express';
-import doctorAPIRoute from '../api/doctorAPI/doctorAPIRoute'
-import specialAPIRoute from './specialAPI/specialAPIRoute.js'
-import facilityAPIRoute from './facilityAPI/facilityAPIRoute.js'
-import patientAPIRoute from '../api/patientAPI/patientAPIRoute'
-import appointmentAPIRoute from './appointmentAPI/appointmentAPIRoute.js'
+import doctorAPIRoute from './doctorAPIRoute.js'
+import specialAPIRoute from './specialAPIRoute.js'
+import facilityAPIRoute from './facilityAPIRoute.js'
+import patientAPIRoute from './patientAPIRoute'
+import appointmentAPIRoute from './appointmentAPIRoute.js'
 const router = express.Router();
 
 // -----------------------------------------

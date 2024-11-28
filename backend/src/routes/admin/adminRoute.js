@@ -1,8 +1,8 @@
 import express from 'express'
 
 // -----------------------------------------
-import adminController from '../../controllers/admin/adminController.js'
-import appointmentController from '../../controllers/appointment/appointmentController.js'
+import adminController from '../../controllers/adminController.js'
+import appointmentController from '../../controllers/appointmentController.js'
 
 // -----------------------------------------
 import doctorRoute from '../doctor/doctorRoute.js'

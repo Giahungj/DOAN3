@@ -1,11 +1,11 @@
 // Thiết lập Model
-import Doctor from '../../models/doctorModel'
-import Specialty from '../../models/specialtyModel'
-import DoctorSpecialty from '../../models/doctorSpecialtyModel'
-import Appointment from '../../models/appointmentModel'
-import Facility from '../../models/medicalFacilityModel'
-import Users from '../../models/usersModel'
-import setupAssociations from '../../models/associations'
+import Doctor from '../models/doctorModel'
+import Specialty from '../models/specialtyModel'
+import DoctorSpecialty from '../models/doctorSpecialtyModel'
+import Appointment from '../models/appointmentModel'
+import Facility from '../models/medicalFacilityModel'
+import Users from '../models/usersModel'
+import setupAssociations from '../models/associations'
 
 import { Sequelize, DataTypes } from 'sequelize'
 

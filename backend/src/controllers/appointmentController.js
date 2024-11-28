@@ -1,15 +1,15 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
-import Doctor from '../../models/doctorModel'
-import Patient from '../../models/patientModel'
-import Specialty from '../../models/specialtyModel'
-import MedicalFacility from '../../models/medicalFacilityModel'
-import DoctorSpecialty from '../../models/doctorSpecialtyModel'
-import Appointment from '../../models/appointmentModel'
-import Users from '../../models/usersModel'
-import TimeSlot from '../../models/timeSlotModel'
+import Doctor from '../models/doctorModel'
+import Patient from '../models/patientModel'
+import Specialty from '../models/specialtyModel'
+import MedicalFacility from '../models/medicalFacilityModel'
+import DoctorSpecialty from '../models/doctorSpecialtyModel'
+import Appointment from '../models/appointmentModel'
+import Users from '../models/usersModel'
+import TimeSlot from '../models/timeSlotModel'
 
-import timeSlotController from '../../controllers/timeSlotController'
+import timeSlotController from './timeSlotController'
 
 // -----------------------------------------
 const getAppointmentsPage = (req, res) => {

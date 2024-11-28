@@ -1,9 +1,9 @@
 import { Sequelize, DataTypes } from 'sequelize';
 
 // Thiết lập Model
-import Doctor from '../../models/doctorModel'
-import Specialty from '../../models/specialtyModel'
-import DoctorSpecialty from '../../models/doctorSpecialtyModel'
+import Doctor from '../models/doctorModel'
+import Specialty from '../models/specialtyModel'
+import DoctorSpecialty from '../models/doctorSpecialtyModel'
 
 // -----------------------------------------
 const getSpecialtiesPage = (req, res) => {

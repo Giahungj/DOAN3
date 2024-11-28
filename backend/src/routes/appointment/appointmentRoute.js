@@ -1,5 +1,5 @@
 import express from 'express'
-import appointmentController from '../../controllers/appointment/appointmentController'
+import appointmentController from '../../controllers/appointmentController'
 
 const router = express.Router()
 

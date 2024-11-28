@@ -1,6 +1,6 @@
-import Patient from '../../models/patientModel'
-import Users from '../../models/usersModel'
-import Appointment from '../../models/appointmentModel'
+import Patient from '../models/patientModel'
+import Users from '../models/usersModel'
+import Appointment from '../models/appointmentModel'
 
 const getPatientsPage = async(req, res) => {
     try {
