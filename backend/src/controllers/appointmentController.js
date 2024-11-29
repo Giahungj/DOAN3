@@ -21,8 +21,10 @@ const getAppointmentsPage = (req, res) => {
 }
 
 // -----------------------------------------
-const getAppointmentInfoPage = (req, res, title, appointmentData, timeSlotData) => {
-  return res.render('pages/appointmentInfo.ejs', { title: title, appointmentData, timeSlotData })
+const getAppointmentInfoPage = async(req, res) => {
+  const appointment_id = await req.params.appointment_id
+  const appointment = await getAppointment(appointment_id)
+  return res.render('pages/appointmentInfo.ejs', { title: 'Thông tin lịch hẹn', appointmentData: appointment.appointmentData, timeSlotData: appointment.timeSlotData })
 }
 
 // ========================================================= API =========================================================
@@ -72,9 +74,8 @@ const getAppointments = async (req, res) => {
 }
 
 // -----------------------------------------
-const getAppointment = async(req, res, app_id) => {
+const getAppointment = async(appointment_id) => {
   try {
-    const appointment_id = req.params.appointment_id || app_id;
     const appointment = await Appointment.findOne({
       where: { appointment_id },
       include: [
@@ -97,13 +98,16 @@ const getAppointment = async(req, res, app_id) => {
     const timeSlotData = await timeSlotController.getTimeSlotList()
     // Kiểm tra nếu không tìm thấy dữ liệu
     if (!appointment) {
-      return getAppointmentInfoPage(req, res, 'Không tìm thấy lịch hẹn', '', '')
+      return getAppointmentInfoPage()
     }
-
-    const appointmentData = { ... appointment, appointment_time: formatDate(appointment.appointment_time), createdAt: formatDate(appointment.createdAt), updatedAt: formatDate(appointment.updatedAt) }
-    console.log(appointmentData.dataValues.appointment_id)
+    const appointmentData = {
+      ... appointment.dataValues,
+      appointment_time: formatDate(appointment.appointment_time), 
+      createdAt: formatDate(appointment.createdAt), 
+      updatedAt: formatDate(appointment.updatedAt)
+    }
     
-    return getAppointmentInfoPage(req, res, 'Thông tin lịch hẹn', appointmentData, timeSlotData)
+    return { appointmentData, timeSlotData }
   } catch (error) {
     console.error(error)
   }
@@ -124,9 +128,7 @@ const updateAppointment = async(req, res) => {
         where: { appointment_id: app.appointment_id }, // Điều kiện để cập nhật
       }
     )
-    const timeSlotData = await timeSlotController.getTimeSlotList()
-    const appointmentData = await getAppointment(req, res, app.appointment_id)
-    return getAppointmentInfoPage(req, res, 'Thông tin lịch hẹn', appointmentData, timeSlotData)
+    res.redirect(`/admin/lich-hen/thong-tin/${app.appointment_id}`)
   } catch (error) {
     console.error(error)
   }

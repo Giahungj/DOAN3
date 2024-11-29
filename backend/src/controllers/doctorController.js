@@ -5,6 +5,7 @@ import DoctorSpecialty from '../models/doctorSpecialtyModel'
 import Appointment from '../models/appointmentModel'
 import Facility from '../models/medicalFacilityModel'
 import Users from '../models/usersModel'
+import Patient from '../models/patientModel'
 import setupAssociations from '../models/associations'
 
 import { Sequelize, DataTypes } from 'sequelize'
@@ -23,9 +24,7 @@ const getDoctorsPage = (req, res) => {
 // -----------------------------------------
 const getDoctorInfoPage = async (req, res) => {
   const doctor_id = await req.query.doctor_id
-  console.log(doctor_id)
   const docInfo = await getDoctorInfo(req, res, doctor_id)
-  console.log(docInfo)
   return res.render('pages/doctorInfo.ejs', { title: 'Thông tin bác sĩ', docInfo })
 }
 
@@ -108,6 +107,10 @@ const getDoctorInfo = async(req, res, doctor_id) => {
         {
           model: Appointment,
           as: 'appointments',
+          include: [{ 
+            model: Patient, as: 'patient',
+            include: [{ model: Users, as: 'user' }]
+          }]
         },
         {
           model: Facility,
@@ -121,34 +124,21 @@ const getDoctorInfo = async(req, res, doctor_id) => {
       return res.render('pages/doctorInfo.ejs', { title: 'Không tìm thấy bác sĩ' })
     }
 
-    const formattedDocInfo = {
-      doctor_id: docInfo.doctor_id,
-      licence_number: docInfo.licence_number,
-      introduction: docInfo.introduction,
-      working_schedule: docInfo.working_schedule,
+    const formattedDocInfo = { ... docInfo.dataValues, 
       price_vietnamese: formatCurrency(docInfo.price_vietnamese, 'VND'),
       price_foreigners: formatCurrency(docInfo.price_foreigners, 'USD'),
-      work_experience: docInfo.work_experience,
-      education: docInfo.education,
-      gender: docInfo.gender,
-      user: {
-        user_id: docInfo.user.user_id,
-        role: docInfo.user.role,
-        gender: docInfo.user.gender,
-        user_id: docInfo.user.user_id,
-        phone_number: docInfo.user.phone_number,
-        address: docInfo.user.address,
-        citizen_id_card: docInfo.user.citizen_id_card,
-        day_of_birth: formatDate(docInfo.user.day_of_birth)
-      },
+      user: docInfo.user.dataValues,
       specialties: docInfo.specialties.map(spec => spec.special_name),
       appointments: docInfo.appointments.map(app => ({
         appointment_id: app.appointment_id,
         appointment_time: formatDate(app.appointment_time),
         createdAt: formatDate(app.createdAt),
-        updatedAt: formatDate(app.updatedAt)
+        updatedAt: formatDate(app.updatedAt),
+        patient: app.patient && app.patient.user && app.patient.user.name ? app.patient.user.name : ''
       }))
     }
+
+    console.log(formattedDocInfo)
 
     return formattedDocInfo
   } catch (error) {

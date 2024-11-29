@@ -1,6 +1,6 @@
 import express from 'express'
 import homeController from '../controllers/homeController'
-import adminRoute from './admin/adminRoute.js'
+import adminRoute from './adminRoute.js'
 
 import APIRoute from './api/APIRoute'
 // import { render } from 'ejs'

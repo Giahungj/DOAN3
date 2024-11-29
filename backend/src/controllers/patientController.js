@@ -1,6 +1,7 @@
 import Patient from '../models/patientModel'
 import Users from '../models/usersModel'
 import Appointment from '../models/appointmentModel'
+import Doctor from '../models/doctorModel'
 
 // Định dạng
 import { formatDate } from '../utils/formatUtils'
@@ -54,7 +55,6 @@ const getPatientInfoPage = async (req, res) => {
 const getPatientStatistics = async (req, res) => {
     try {
       const totalCount = await Patient.count()
-      console.log(totalCount)
       return res.json({
           totalPatientsCount: totalCount,
       })
@@ -77,7 +77,10 @@ const getPatientInfo = async(req, res, patient_id) => {
           },
           {
             model: Appointment,
-            as: 'appointments'
+            as: 'appointments',
+            include: [{ model: Doctor, as: 'doctor',
+              include: [{ model: Users, as: 'user'}] 
+            }]
           },
         ]
       })
@@ -105,7 +108,8 @@ const getPatientInfo = async(req, res, patient_id) => {
           appointment_id: app.appointment_id,
           appointment_time: formatDate(app.appointment_time),
           createdAt: formatDate(app.createdAt),
-          updatedAt: formatDate(app.updatedAt)
+          updatedAt: formatDate(app.updatedAt),
+          doctor: app.doctor,
         }))
       }
 

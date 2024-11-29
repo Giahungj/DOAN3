@@ -121,6 +121,14 @@ const getAppointmentsPage = async () => {
         const html = await response.text()
         document.getElementById('contentArea').innerHTML = html
     } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu:', error);
+        console.error('Lỗi khi lấy dữ liệu:', error)
     }
 }
+
+// Định dạng giá trị Ngày tháng cho input cập nhật
+const date = '23/11/2024'
+const [day, month, year] = date.split('/')
+const formattedDate = `${year}-${month}-${day}`
+
+document.querySelector('input[type="date"]').value = formattedDate
+document.querySelector('input[type="date"]').min = formattedDate

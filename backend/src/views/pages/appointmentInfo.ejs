@@ -16,7 +16,7 @@
                                 <div class="col-8 m-1 p-2 border border-0 rounded shadow-sm bg-white text-gray-600">
                                     <div class="col text-gray-700 text-start">
                                         <% if (appointmentData) { %>
-                                            <h5>Mã hẹn:
+                                            <h5>Mã hẹn: 
                                                 <% if (appointmentData.approval_status === 'approved') { %>
                                                     <span class="text-green-400"><%= appointmentData.appointment_id %></span>
                                                 <% } else if (appointmentData.approval_status === 'pending') { %>
@@ -113,52 +113,55 @@
                                 </div>
                                 <div class="col m-1">
                                     <div class="row mb-2 p-2 border border-0 border-white rounded shadow-sm bg-white text-gray-600 text-start">
-                                        <div>
-                                            <a onclick='submitDoctorForm("form-<%= appointmentData.doctor.doctor_id %>")' class="text-center cursor-pointer text-blue-400"><h5>Bác sĩ</h5></a>
-                                            <form method="GET" id="form-<%= appointmentData.doctor.doctor_id %>">
-                                                <input type="hidden" name="doctor_id" value="<%= appointmentData.doctor.doctor_id %>"></input>
-                                            </form>
-                                            <% if (appointmentData) { %>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-user-md m-1"></i> <strong>Họ và tên:</strong> <%= appointmentData.doctor.user.name %>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-hospital-alt m-1"></i> <strong>Phòng khám:</strong> <%= appointmentData.doctor.facility.name %>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-map-marker-alt m-1"></i> <strong>Địa chỉ làm việc:</strong> <%= appointmentData.doctor.facility.address %>
-                                                </p>
-                                            <% } else { %>
-                                                <p class="fs-6 m-0">Không có thông tin bác sĩ</p>
-                                            <% } %>
-                                        </div>
-                                        
+                                        <a class="my-2 text-center">
+                                            <button class="btn btn-outline-primary w-75" onclick='submitDoctorForm("form-<%= appointmentData.doctor.doctor_id %>")' >
+                                                <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin bác sĩ
+                                            </button>
+                                        </a>
+                                        <form method="GET" id="form-<%= appointmentData.doctor.doctor_id %>">
+                                            <input type="hidden" name="doctor_id" value="<%= appointmentData.doctor.doctor_id %>"></input>
+                                        </form>
+                                        <% if (appointmentData) { %>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-user-md m-1"></i> <strong>Họ và tên:</strong> <%= appointmentData.doctor.user.name %>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-hospital-alt m-1"></i> <strong>Phòng khám:</strong> <%= appointmentData.doctor.facility.name %>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-map-marker-alt m-1"></i> <strong>Địa chỉ làm việc:</strong> <%= appointmentData.doctor.facility.address %>
+                                            </p>
+                                        <% } else { %>
+                                            <p class="fs-6 m-0">Không có thông tin bác sĩ</p>
+                                        <% } %>
                                     </div>
 
                                     <div class="row p-2 border border-0 rounded shadow-sm bg-white text-gray-600 text-start">
-                                        <div>
-                                            <a href="/admin/benh-nhan/thong-tin/<%= appointmentData.patient_id %>" class="text-center text-blue-400"><h5>Bệnh nhân</h5></a>
-                                            
-                                            <% if (appointmentData) { %>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-id-card m-1"></i> Mã bệnh nhân: <span class="text-red-400"><%= appointmentData.patient.patient_id %></span>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-user-injured m-1"></i> Tên bệnh nhân: <%= appointmentData.patient.user.name %>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-calendar-alt m-1"></i> Ngày khám: <strong class="text-red-400"><%= appointmentData.appointment_time %></strong>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-clock m-1"></i> Thời gian khám: <strong class="text-red-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
-                                                </p>
-                                                <p class="ms-1 mb-0 fs-6">
-                                                    <i class="fas fa-hospital-alt m-1"></i> Cơ sở y tế: <%= appointmentData.doctor.facility.address %>
-                                                </p>
-                                            <% } else { %>
-                                                <p class="fs-6 m-0">Không có Lịch hẹn</p>
-                                            <% } %>
-                                        </div>
+                                        <a href="/admin/benh-nhan/thong-tin/<%= appointmentData.patient.patient_id %>" type="button" class="my-2 text-center">
+                                            <button class="btn btn-outline-primary w-75">
+                                                <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin bệnh nhân
+                                            </button>
+                                        </a>
+                                        
+                                        <% if (appointmentData) { %>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-id-card m-1"></i> Mã bệnh nhân: <span class="text-red-400"><%= appointmentData.patient.patient_id %></span>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-user-injured m-1"></i> Tên bệnh nhân: <%= appointmentData.patient.user.name %>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-calendar-alt m-1"></i> Ngày khám: <strong class="text-red-400"><%= appointmentData.appointment_time %></strong>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-clock m-1"></i> Thời gian khám: <strong class="text-red-400"><%= appointmentData.timeSlot.start_time %> - <%= appointmentData.timeSlot.end_time %></strong>
+                                            </p>
+                                            <p class="ms-1 mb-0 fs-6">
+                                                <i class="fas fa-hospital-alt m-1"></i> Cơ sở y tế: <%= appointmentData.doctor.facility.address %>
+                                            </p>
+                                        <% } else { %>
+                                            <p class="fs-6 m-0">Không có Lịch hẹn</p>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -182,12 +185,13 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="appointmentId" class="form-label">Mã lịch hẹn</label>
-                        <input type="text" class="form-control" name="appointment_id" value="<%= appointmentData.appointment_id %>" readonly >
+                        <input type="text" class="form-control" name="appointment_id" value="<%= appointmentData.appointment_id %>" readonly>
                     </div>
                     <div class="mb-3">
-                        <% const currentDate = new Date().toISOString().split('T')[0]; %>
                         <label for="appointmentDate" class="form-label">Ngày khám</label>
-                        <input type="date" class="form-control" name="appointmentDate" value="<%= currentDate %>" min="<%= currentDate %>" required>
+                        <input type="date" class="form-control" name="appointmentDate"
+                        value="<%= appointmentData.appointment_time %>"
+                        min="<%= appointmentData.appointment_time %>" required>
                     </div>
                 
                     <div class="mb-3">

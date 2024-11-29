@@ -79,10 +79,6 @@ const getFacilityInfo = async(req, res, medical_facility_id) => {
       return res.render('pages/facilityInfo.ejs', { title: 'Không tìm thấy cơ sở' })
     }
 
-    facilityInfo.doctors.forEach(doc => {
-      console.table([doc.user.name])
-      console.table([doc.user.avatar])
-    })
     return facilityInfo
   } catch (error) {
     console.error(error)

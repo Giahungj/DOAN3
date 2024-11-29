@@ -15,11 +15,12 @@
                         <div id="contentArea">
                             <div class="row m-0">
                                 <div class="col-8 text-start border border-0 rounded shadow-sm bg-white">
-                                    <% if (docInfo && docInfo.appointments && docInfo.appointments.length > 0) { %>
-                                        <p class="fs-5 fw-bold mt-2 text-center">Lịch làm việc</p>
-                                        <table class="table table-striped table-bordered">
-                                            <thead>
+                                    <p class="fs-5 fw-bold mt-2 text-center">Lịch làm việc</p>
+                                    <table class="table table-striped table-bordered">
+                                        <% if (docInfo && docInfo.appointments && docInfo.appointments.length > 0) { %>
+                                        <thead>
                                                 <tr>
+                                                    <th class="text-center">Bệnh nhân</th>
                                                     <th class="text-center">Ngày làm việc</th>
                                                     <th class="text-center">Ngày đặt lịch</th>
                                                     <th class="text-center">Tùy chỉnh</th>
@@ -28,6 +29,7 @@
                                             <tbody>
                                                 <% docInfo.appointments.forEach(function(appointment) { %>
                                                     <tr>
+                                                        <td class="text-start ps-4"><%= appointment.patient %></td>
                                                         <td class="text-end p-2"><%= appointment.appointment_time %></td>
                                                         <td class="text-end p-2"><%= appointment.createdAt %></td>
                                                         <td class="w-25 text-center">
@@ -38,15 +40,17 @@
                                                     </tr>
                                                 <% }) %>
                                             </tbody>
-                                        </table>
-                                    <% } else { %>
-                                        <p class="fs-2 m-0 text-danger text-center">Không có lịch làm việc</p>
-                                    <% } %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td class="fs-2 text-danger text-center">Không có lịch làm việc</td>
+                                            </tr>
+                                        <% } %>
+                                    </table>
                                 </div>
                                 <div class="col ms-3 ps-2 text-start">
                                     <div class="row mb-2 border border-0 rounded shadow-sm bg-white">
-                                        <% if (docInfo) { %>
                                         <p class="fw-bold fs-5 text-center">Thông tin bác sĩ</p>
+                                        <% if (docInfo) { %>
                                         <p class="m-0">
                                             Bác sĩ <%= docInfo.user.name %>
                                             <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;" title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
@@ -57,12 +61,16 @@
                                         <p class="m-0">Giá cho người nước ngoài: <%= docInfo.price_foreigners %></p>
                                         <p class="m-0">Chuyên khoa: <%= docInfo.specialties.join(', ') %></p>
                                         <% } else { %>
-                                            <p class="fs-6 m-0">Không có bác sĩ</p>
+                                            <p class="fs-6 m-0 text-center text-red-400">Không có thông tin bác sĩ</p>
                                         <% } %>
                                     </div>
                                     <div class="row border border-0 rounded shadow-sm bg-white">
-                                        <% if (docInfo) { %>
-                                        <p class="fw-bold fs-5 text-center">Thông tin tài khoản</p>
+                                        <% if (docInfo && docInfo.user) { %>
+                                            <a href="/admin/tai-khoan/thong-tin/<%= docInfo.user.user_id %>" type="button" class="my-2 text-center">
+                                                <button class="btn btn-outline-primary w-75">
+                                                    <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin tài khoản
+                                                </button>
+                                            </a>
                                             <p class="m-0">
                                                 Tài khoản <%= docInfo.user.user_id %>
                                                 <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;" title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>
@@ -74,7 +82,7 @@
                                             <p class="m-0">Ngày sinh: <%= docInfo.user.day_of_birth %></p>
                                             <p class="m-0">Địa chỉ: <%= docInfo.user.address %></p>
                                         <% } else { %>
-                                            <p class="fs-6 m-0">Không có thông tin</p>
+                                        <p class="fw-bold fs-5 text-center text-red-400">Không có thông tin tài khoản</p>
                                         <% } %>
                                     </div>
                                 </div>

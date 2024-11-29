@@ -1,0 +1,58 @@
+<div class="container-fluid p-5" id="admin-background">
+    <div class="overflow-hidden mx-5 border border-0 rounded-2 shadow">
+        <div class="row g-0">
+            <div class="col-2 overflow-hidden">
+                <%- include('../partials/sidebarMenu.ejs') %>
+            </div>
+            <div class="col-10">
+                <div class="row g-0">
+                    <%- include('../partials/header.ejs') %>
+                </div>
+                <div class="row g-0">
+                    <div class="container-fluid bg-white-200 bg-opacity-75 text-center p-4 po-ralative">
+                        <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin tài khoản</p>
+                        <div id="contentArea">
+                            <div class="d-flex justify-content-center m-2">
+                                <div class="col-8 m-1 w-75 p-2 border border-0 rounded shadow bg-white text-gray-600">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-user text-secondary"></i>Tài khoản</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.name %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-regular fa-user text-secondary"></i>Tên người dùng</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.name %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-address-card text-secondary"></i>CMND/CCCD</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.citizen_id_card %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-cake-candles text-secondary"></i>Ngày sinh</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.day_of_birth %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-location-pin text-secondary"></i> Địa chỉ</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.address %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-phone text-secondary"></i>Số điện thoại</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.phone_number %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-regular fa-circle text-secondary"></i>Giới tính</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.gender %>" readonly>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text w-25" id="basic-addon1"><i class="me-2 fa-solid fa-circle text-secondary"></i>Vai trò</span>
+                                        <input type="text" class="form-control" placeholder="<%= account.role %>" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

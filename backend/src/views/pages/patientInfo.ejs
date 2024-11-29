@@ -21,6 +21,7 @@
                                             <table class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
+                                                        <th class="text-center">Bác sĩ</th>
                                                         <th class="text-center">Ngày hẹn</th>
                                                         <th class="text-center">Ngày đặt lịch</th>
                                                         <th class="text-center">Tùy chỉnh</th>
@@ -29,6 +30,7 @@
                                                 <tbody>
                                                     <% patientInfo.appointments.forEach(function(appointment) { %>
                                                         <tr>
+                                                            <td class="ps-3"><%= appointment.doctor.user.name %></td>
                                                             <td class="text-end p-2"><%= appointment.appointment_time %></td>
                                                             <td class="text-end p-2"><%= appointment.createdAt %></td>
                                                             <td class="w-25 text-center">
@@ -62,7 +64,11 @@
 
                                         <div class="row border border-0 rounded shadow-sm bg-white">
                                             <% if (patientInfo) { %>
-                                            <p class="fw-bold fs-5 text-center">Thông tin tài khoản</p>
+                                            <a href="/admin/tai-khoan/thong-tin/<%= patientInfo.user.user_id %>" type="button" class="my-2 text-center">
+                                                <button class="btn btn-outline-primary w-75">
+                                                    <i class="me-2 fa-solid fa-hand-point-right"></i>Thông tin tài khoản
+                                                </button>
+                                            </a>
                                                 <p class="m-0">
                                                     Tài khoản <%= patientInfo.user.user_id %>
                                                     <i class="fas fa-edit fw-light text-cyan-400 ms-2" style="cursor: pointer;" title="Chỉnh sửa thông tin" onclick="editDocInfo()"></i>

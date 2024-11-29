@@ -7,6 +7,9 @@ const setPageTitle = (pageTitle) => {
         case 'patient-manager':
             pageTitleId.innerText = 'Quản lý bệnh nhân'
             break
+        case 'account-manager':
+            pageTitleId.innerText = 'Quản lý tài khoản'
+            break
         case 'doctor-manager':
             pageTitleId.innerText = 'Quản lý bác sĩ'
             break
@@ -78,6 +81,8 @@ const updateContent = (pageTitle) => {
     if (!pageTitle) return
     if (pageTitle === 'patient-manager') {
         getPatientsPage()
+    } else if (pageTitle === 'account-manager') {
+        getAccountsPage()
     } else if (pageTitle === 'doctor-manager') {
         getDoctorsPage()
     } else if (pageTitle === 'specialty-manager') {
@@ -95,6 +100,9 @@ const getDataTable = async (dataTarget) => {
     switch (dataTarget) {
         case 'patientTable':
             loadPatientData(1)
+            break;
+        case 'accountTable':
+            loadAccountData(1)
             break;
         case 'doctorTable':
             loadDoctorData(1)

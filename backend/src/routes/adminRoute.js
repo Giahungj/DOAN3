@@ -1,15 +1,16 @@
 import express from 'express'
 
 // -----------------------------------------
-import adminController from '../../controllers/adminController.js'
-import appointmentController from '../../controllers/appointmentController.js'
+import adminController from '../controllers/adminController.js'
+import appointmentController from '../controllers/appointmentController.js'
 
 // -----------------------------------------
-import doctorRoute from '../doctor/doctorRoute.js'
-import specialRoute from '../special/specialRoutes.js'
-import facilityRoute from '../facility/facilityRoute.js'
-import appointmentRoute from '../appointment/appointmentRoute.js'
-import patientRoute from '../patient/patientRoute.js'
+import doctorRoute from './doctorRoute.js'
+import accountRoute from './accountRoute.js'
+import specialRoute from './specialRoutes.js'
+import facilityRoute from './facilityRoute.js'
+import appointmentRoute from './appointmentRoute.js'
+import patientRoute from './patientRoute.js'
 
 // -----------------------------------------
 const router = express.Router()
@@ -22,6 +23,9 @@ router.use("/bac-si", doctorRoute)
 
 // -----------------------------------------
 router.use("/benh-nhan", patientRoute)
+
+// -----------------------------------------
+router.use("/tai-khoan", accountRoute)
 
 // -----------------------------------------
 router.use("/chuyen-khoa", specialRoute)
