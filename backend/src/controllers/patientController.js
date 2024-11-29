@@ -2,6 +2,10 @@ import Patient from '../models/patientModel'
 import Users from '../models/usersModel'
 import Appointment from '../models/appointmentModel'
 
+// Định dạng
+import { formatDate } from '../utils/formatUtils'
+import { formatCurrency } from '../utils/formatUtils'
+
 const getPatientsPage = async(req, res) => {
     try {
       return res.render('pages/patient.ejs', { title: 'Quản lý bệnh nhân'})
@@ -62,7 +66,7 @@ const getPatientStatistics = async (req, res) => {
 // -----------------------------------------
 const getPatientInfo = async(req, res, patient_id) => {
     try {
-      const patientInfo = await Patient.findOne({
+      const patient = await Patient.findOne({
         where: {
             patient_id: patient_id
         },
@@ -78,8 +82,31 @@ const getPatientInfo = async(req, res, patient_id) => {
         ]
       })
 
-      if (!patientInfo) {
+      if (!patient) {
         return res.render('pages/patientInfo.ejs', { title: 'Không tìm thấy bệnh nhân' })
+      }
+
+      const patientInfo = {
+        patient_id: patient.patient_id,
+        age: patient.age,
+        gender: patient.gender,
+        health_insurance_code: patient.health_insurance_code,
+        user: {
+          user_id: patient.user.user_id,
+          role: patient.user.role,
+          gender: patient.user.gender,
+          user_id: patient.user.user_id,
+          phone_number: patient.user.phone_number,
+          address: patient.user.address,
+          citizen_id_card: patient.user.citizen_id_card,
+          day_of_birth: formatDate(patient.user.day_of_birth)
+        },
+        appointments: patient.appointments.map(app => ({
+          appointment_id: app.appointment_id,
+          appointment_time: formatDate(app.appointment_time),
+          createdAt: formatDate(app.createdAt),
+          updatedAt: formatDate(app.updatedAt)
+        }))
       }
 
       return patientInfo

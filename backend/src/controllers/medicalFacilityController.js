@@ -1,4 +1,5 @@
 import Doctor from '../models/doctorModel'
+import Users from '../models/usersModel'
 import MedicalFacility from '../models/medicalFacilityModel'
 
 // -----------------------------------------
@@ -68,22 +69,20 @@ const getFacilities = async (req, res) => {
 const getFacilityInfo = async(req, res, medical_facility_id) => {
   try {
     const facilityInfo = await MedicalFacility.findOne({
-      where: {
-        medical_facility_id: medical_facility_id
-      },
-      include: [
-        {
-          model: Doctor,
-          as: 'doctors'
-        }
-      ]
+      where: { medical_facility_id: medical_facility_id },
+      include: [{ model: Doctor, as: 'doctors',
+        include: [{ model: Users, as: 'user', }]
+      }]
     })
     // Kiểm tra nếu không tìm thấy chuyên khoa
     if (!facilityInfo) {
       return res.render('pages/facilityInfo.ejs', { title: 'Không tìm thấy cơ sở' })
     }
 
-    // console.log('Thông tin chi tiết cơ sở y tế:', facilityInfo.dataValues)
+    facilityInfo.doctors.forEach(doc => {
+      console.table([doc.user.name])
+      console.table([doc.user.avatar])
+    })
     return facilityInfo
   } catch (error) {
     console.error(error)

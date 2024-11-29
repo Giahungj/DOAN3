@@ -99,8 +99,10 @@ const getAppointment = async(req, res, app_id) => {
     if (!appointment) {
       return getAppointmentInfoPage(req, res, 'Không tìm thấy lịch hẹn', '', '')
     }
-    const appointmentData = { ... appointment, appointment_time: formatDate(appointment.appointment_time), createdAt: formatDate(appointment.createdAt), updatedAt: formatDate(appointment.updatedAt) }
 
+    const appointmentData = { ... appointment, appointment_time: formatDate(appointment.appointment_time), createdAt: formatDate(appointment.createdAt), updatedAt: formatDate(appointment.updatedAt) }
+    console.log(appointmentData.dataValues.appointment_id)
+    
     return getAppointmentInfoPage(req, res, 'Thông tin lịch hẹn', appointmentData, timeSlotData)
   } catch (error) {
     console.error(error)
