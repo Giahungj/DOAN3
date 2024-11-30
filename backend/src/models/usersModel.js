@@ -19,6 +19,14 @@ const Users = sequelize.define('Users', {
         type: DataTypes.STRING(100),
         allowNull: false,
     },
+    username: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
     citizen_id_card: {
         type: DataTypes.STRING(20),
         allowNull: true,

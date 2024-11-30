@@ -149,6 +149,18 @@ const getDoctorInfo = async(req, res, doctor_id) => {
 // -----------------------------------------
 const getDoctorStatistics = async (req, res) => {
   try {
+    const currentDate = new Date()
+    const currentDateString = currentDate.toISOString().split('T')[0]
+
+    const totalAppointmentToDayCount = await Appointment.count({
+      where: Sequelize.where(
+          Sequelize.fn('DATE', Sequelize.col('appointment_time')), 
+          '=', currentDateString
+      ),
+      approval_status: 'approved'
+    })
+
+    const approvedCount = await Appointment.count({ where: { approval_status: 'approved' } })
     const totalCount = await Doctor.count()
     const femaleCount = await Doctor.count({ where: { gender: 'Female' } })
     const maleCount = await Doctor.count({ where: { gender: 'Male' } })
@@ -157,11 +169,14 @@ const getDoctorStatistics = async (req, res) => {
     const femalePercentage = totalCount > 0 ? ((femaleCount / totalCount) * 100) : 0;
     const malePercentage = totalCount > 0 ? ((maleCount / totalCount) * 100) : 0;
     const otherPercentage = totalCount > 0 ? ((otherCount / totalCount) * 100) : 0;
+
     return res.json({
       totalDoctorsCount: totalCount,
       femalePercentage,
       malePercentage,
       otherPercentage,
+      totalAppointmentToDayCount,
+      approvedCount
   })
   } catch (error) {
     console.error(error)

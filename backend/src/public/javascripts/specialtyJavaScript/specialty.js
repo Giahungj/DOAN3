@@ -23,11 +23,11 @@ const loadSpecialData = async (page) => {
             <tr class="cursor-pointer" onclick="window.location='/admin/chuyen-khoa/thong-tin/${special.special_id}'">
                 <td class="text-center">${i}</td>
                 <td class="text-start">${special.special_name}</td>
-                <td class="text-start">${special.created_at}</td>
+                <td class="text-center">${special.created_at}</td>
                 <td class="text-start">${special.doctors.length}</td>
                 <td>
-                    <a href="/admin/chuyen-khoa/thong-tin/${special.special_id}" class="text-decoration-none" title="Cập nhật thêm">
-                        <i class="fas fa-edit fs-5 text-teal-300 me-2"></i>
+                    <a href="/admin/chuyen-khoa/thong-tin/${special.special_id}">
+                        Xem chi tiết
                     </a>
                 </td>
             </tr>

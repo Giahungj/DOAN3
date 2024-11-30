@@ -2,29 +2,32 @@
     <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
     <hr>
     <div class="d-flex justify-content-around align-items-center">
-        <div class="me-2 w-25 p-2 border border-primary boder-2 rounded">
-            <i class="fs-1 fas fa-calendar-alt text-blue-500"></i>
-            <p class="m-1 fs-5 text-blue-600">Tổng số lịch hẹn - 
-                <span class="fs-5 fw-bold text-blue-500" id="totalAppointments"></span>
-            </p>
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center me-5">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-calendar-alt text-blue-300"></i><span class="fs-1 fw-bold text-blue-500" id="totalAppointments"></span>
+            </div>
+            <p class="mb-1 fs-5 text-blue-600">LỊCH HẸN</p>
         </div>
-        <div class="me-2 w-25 p-2 border border-success boder-2 rounded">
-            <i class="fs-1 fas fa-check-circle text-green-500"></i>
-            <p class="m-1 fs-5 text-green-600">Duyệt - 
-                <span class="fs-5 fw-bold green-blue-500" id="approvedAppointments"></span>
-            </p>
+
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center me-5">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-check-circle text-green-300"></i><span class="fs-1 fw-bold text-green-500" id="approvedAppointments"></span>
+            </div>
+            <p class="mb-1 fs-5 text-green-600">DUYỆT</p>
         </div>
-        <div class="me-2 w-25 p-2 border border-warning boder-2 rounded">
-            <i class="fs-1 fas fa-hourglass-start text-yellow-500"></i>
-            <p class="m-1 fs-5 text-yellow-600">Đang chờ -
-                <span class="fs-5 fw-bold green-yellow-500" id="pendingAppointments"></span>
-            </p>
+
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center me-5">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-hourglass-start text-yellow-300"></i><span class="fs-1 fw-bold text-yellow-500" id="pendingAppointments"></span>
+            </div>
+            <p class="mb-1 fs-5 text-yellow-600">ĐANG CHỜ</p>
         </div>
-        <div class=" w-25 p-2 border border-danger boder-2 rounded">
-            <i class="fs-1 fas fa-times-circle text-red-500"></i>
-            <p class="m-1 fs-5 text-red-600">Hủy -
-                <span class="fs-5 fw-bold green-red-500" id="canceledAppointments"></span>
-            </p>
+
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-times-circle text-red-300"></i><span class="fs-1 fw-bold text-red-500" id="canceledAppointments"></span>
+            </div>
+            <p class="mb-1 fs-5 text-red-600">HỦY</p>
         </div>
     </div>
 </div>
@@ -32,7 +35,7 @@
     <table class="table table-bordered table-striped caption-top table-hover">
         <caption>DANH SÁCH LỊCH HẸN<hr class="m-0"></caption>
         <thead>
-            <tr class="text-start">
+            <tr class="text-center">
                 <th>STT</th>
                 <th>Trạng thái
                     <select class="">

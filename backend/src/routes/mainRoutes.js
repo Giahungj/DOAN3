@@ -1,6 +1,6 @@
 import express from 'express'
-import homeController from '../controllers/homeController'
 import adminRoute from './adminRoute.js'
+import accountController from '../controllers/accountController.js'
 
 import APIRoute from './api/APIRoute'
 // import { render } from 'ejs'
@@ -16,6 +16,9 @@ let initWebRoutes = (app) => {
 
     // -----------------------------------------
     router.use("/api", APIRoute)
+
+    // -----------------------------------------
+    router.get("/logout", accountController.logout)
 
     // -----------------------------------------
     // router.get("/admin/*", homeController.get404Page)

@@ -70,6 +70,9 @@ const setActiveLink = () => {
         const pageTitle = navLink.getAttribute('page-title')
         const dataTarget = navLink.getAttribute('data-target-id')
 
+        const newUrl = '/admin'
+        history.pushState({ pageTitle, dataTarget }, pageTitle, newUrl)
+        
         setPageTitle(pageTitle)
         updateContent(pageTitle)
         getDataTable(dataTarget)

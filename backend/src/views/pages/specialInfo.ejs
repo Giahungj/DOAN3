@@ -13,7 +13,7 @@
                         <p class="fs-5 text-gray-700 text-start" id="pageTitle">Thông tin chuyên khoa</p>
                         <div id="contentArea">
                             <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
-                                    <span class="text-gray-600 text-start p-0">Chuyên khoa <%- specialInfo.special_name %></span>
+                                    <span class="text-gray-600 text-start p-0">CHUYÊN KHOA <%- specialInfo.special_name %></span>
                                 <hr class="m-0">
                                 <div class="row g-2">
                                     <div class="col text-start">
@@ -21,6 +21,12 @@
                                             <h6><%= specialInfo.special_name %></h6>
                                             <p class="m-0">Mô tả: <%= specialInfo.description %></p>
                                             <p class="m-0">Ảnh: <%= specialInfo.special_image %></p>
+                                            <p class="m-0">Ngày tạo: <%= specialInfo.created_at %></p>
+                                            <% if ( specialInfo.updated_at === specialInfo.created_at ) { %>
+                                            <p class="m-0">Cập nhật: <%= specialInfo.updated_at %></p>
+                                            <% } else { %>
+                                                <p class="m-0">Cập nhật: Chưa cập nhật</p>
+                                            <% } %>
                                         <% } else { %>
                                             <p class="fs-6 m-0">Không có lịch làm việc</p>
                                         <% } %>

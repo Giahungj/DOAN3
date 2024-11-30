@@ -92,10 +92,6 @@ const getAccountStatistics = async (req, res) => {
     const patientCount = await Users.count({ where: { role: 'Bệnh nhân' } })
     const adminCount = await Users.count({ where: { role: 'Admin' } })
 
-    console.log(totalCount)
-    console.log(doctorCount)
-    console.log(patientCount)
-    console.log(adminCount)
     return res.json({
       totalAccCount: totalCount,
       doctorCount,
@@ -106,6 +102,16 @@ const getAccountStatistics = async (req, res) => {
     console.error(error)
   }
 }
+
+// -----------------------------------------
+const logout = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // ===========================================================================================================================
 export default { 
   getAccountsPage,
@@ -114,5 +120,6 @@ export default {
   getAccounts,
   getAccount,
   updateAccount,
-  getAccountStatistics
+  getAccountStatistics,
+  logout
 }

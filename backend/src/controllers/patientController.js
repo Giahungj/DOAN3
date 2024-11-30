@@ -18,8 +18,12 @@ const getPatientsPage = async(req, res) => {
 
 const getPatients = async (req, res) => {
     try {
+      const page = parseInt(req.query.page) || 1
+      const limit = 10
+      const offset = (page - 1) * limit
         const patients = await Patient.findAll({
-            limit: 8,
+            limit: limit,
+            offset: offset,
             include: [
                 {
                     model: Users,
@@ -28,6 +32,10 @@ const getPatients = async (req, res) => {
                 }
             ]
         })
+
+        const totalPatients = await Patient.count()
+        const totalPages = Math.ceil(totalPatients / limit)
+
         const patientsData = patients.map(patient => {
             const bnhan = patient.toJSON()
             return {
@@ -38,7 +46,7 @@ const getPatients = async (req, res) => {
             }
         })
         
-        return res.json(patientsData)
+    return res.json({ patientsData, currentPage: page, totalPages })
     } catch (error) {
       return res.status(500).json({ message: error.message })
     }

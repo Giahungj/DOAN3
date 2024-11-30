@@ -1,24 +1,32 @@
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white caption-top">
-    <span class="text-gray-600 text-start p-0">Thông Tin Tổng Quát</span>
+    <span class="text-gray-600 text-start p-0">THÔNG TIN TỔNG QUÁT</span>
     <hr>
     <div class="d-flex justify-content-around align-items-end">
-        <div>
-            <p class="m-1 fs-6 text-blue-300">Bác sĩ làm việc hôm nay</p>
-            <p class="m-1 fs-6 fw-bold text-blue-600">100</p>
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-user-md text-blue-300"></i><span class="fs-1 fw-bold text-blue-500" id="totalDoctors"></span>
+            </div>
+            <p class="mb-1 fs-5 text-blue-600">BÁC SĨ</p>
         </div>
-        <div>
-            <p class="m-1 fs-6 text-yellow-300">Tổng số bác sĩ</p>
-            <p class="m-1 fs-6 fw-bold text-yellow-600" id="totalDoctors"></p>
+
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-calendar-alt text-orange-300"></i><span class="fs-1 fw-bold text-orange-500" id="totalAppointmentsToday"></span>
+            </div>
+            <p class="mb-1 fs-5 text-orange-600">LỊCH HẸN HÔM NAY</p>
         </div>
-        <div>
-            <p class="m-1 fs-6 text-orange-300">Bác sĩ làm việc tháng này</p>
-            <p class="m-1 fs-6 fw-bold text-orange-600">100</p>
+
+        <div class="card shadow-sm rounded border-2 bg-white p-3 w-25 text-center">
+            <div class="icon-wrapper mb-2">
+                <i class="fs-1 me-2 fas fa-check-circle text-green-300"></i><span class="fs-1 fw-bold text-green-500" id="totalApprovedAppointments"></span>
+            </div>
+            <p class="mb-1 fs-5 text-green-600">ĐÃ KHÁM</p>
         </div>
     </div>
 </div>
 <div class="row m-2 p-2 border border-0 rounded shadow bg-white">
     <table class="table table-borderless caption-top">
-        <caption>Danh sách bác sĩ<hr class="m-0"></caption>
+        <caption>DANH SÁCH BÁC SĨ<hr class="m-0"></caption>
         <thead>
             <tr>
             </tr>

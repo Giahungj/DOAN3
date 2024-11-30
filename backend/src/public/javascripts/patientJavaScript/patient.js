@@ -1,17 +1,21 @@
-const loadPatientData = async() => {
+const loadPatientData = async(page) => {
     try {
-        const response = await fetch('http://localhost:6969/api/benh-nhan')
+        const response = await fetch(`http://localhost:6969/api/benh-nhan/?page=${page}`)
         if (!response.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const patients = await response.json()
-
+        const { patientsData, currentPage, totalPages } = await response.json()
+        
+        const paginationArea = document.getElementById('paginationArea')
         const patientTable = document.getElementById('patientTable')
         if (!patientTable) return
         patientTable.innerHTML = ''
+        paginationArea.innerHTML = ''
 
-        let i = 1
-        patients.forEach(patient => {
+        const itemsPerPage = 10
+        let i = (currentPage - 1) * itemsPerPage + 1
+        
+        patientsData.forEach(patient => {
             const row = `
                 <tr class="cursor-pointer" onclick="window.location='/admin/benh-nhan/thong-tin/${patient.patient_id}'">
                     <td>${i}</td>
@@ -21,15 +25,51 @@ const loadPatientData = async() => {
                         ${patient.avatar}
                     </td>
                     <td>
-                        <a href="/admin/benh-nhan/thong-tin/${patient.patient_id}"><i class="fas fa-eye fs-5 text-indigo-400 me-2" title="Xem"></i></a>
-                        <a href="#"><i class="fas fa-edit fs-5 text-teal-300 me-2" title="Sửa"></i></a>
-                        <a href="#"><i class="fas fa-trash fs-5 text-red-400" title="Xóa"></i></a>
+                        <a href="/admin/benh-nhan/thong-tin/${patient.patient_id}">Xem chi tiết</a>
                     </td>
                 </tr>
             `
             i++
             patientTable.innerHTML += row
         })
+
+        paginationArea.innerHTML = `
+            <ul class="pagination justify-content-end">
+                ${currentPage > 1 ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadPatientData(${currentPage - 1})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" onclick="loadPatientData(${currentPage})" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`
+                }
+
+                ${Array.from({ length: totalPages }, (_, i) => i + 1).map(page => `
+                    <li class="page-item ${page === currentPage ? 'active' : ''}">
+                        <a class="page-link" onclick="loadPatientData(${page})" href="#">${page}</a>
+                    </li>
+                `).join('')}
+
+                ${currentPage < totalPages ? `
+                    <li class="page-item">
+                        <a class="page-link" onclick="loadPatientData(${currentPage + 1})" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                : `
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`
+                }
+            </ul>
+        `
 
         const response2 = await fetch('http://localhost:6969/api/benh-nhan/so-luong')
         if (!response2.ok) {

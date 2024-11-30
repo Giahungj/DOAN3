@@ -129,10 +129,15 @@ const loadDoctorData = async (page) => {
         if (!doctorStatistics.ok) {
             throw new Error('Phản hồi không ok cho lắm')
         }
-        const { totalDoctorsCount } = await doctorStatistics.json()
+        const { totalDoctorsCount, totalAppointmentToDayCount, approvedCount } = await doctorStatistics.json()
 
         const totalDoctors = document.getElementById('totalDoctors')
+        const totalAppointmentsToday = document.getElementById('totalAppointmentsToday')
+        const totalApprovedAppointments = document.getElementById('totalApprovedAppointments')
+
         totalDoctors.innerText = totalDoctorsCount
+        totalAppointmentsToday.innerText = totalAppointmentToDayCount
+        totalApprovedAppointments.innerText = approvedCount
     } catch (error) {
         console.error('Error fetching doctors:', error)
     }

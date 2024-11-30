@@ -17,41 +17,49 @@ const loadAppointmentData = async (page) => {
 
         const itemsPerPage = 10
         let i = (currentPage - 1) * itemsPerPage + 1
-        
-        appointmentsData.forEach(appointment => {
+
+        if (appointmentsData.length === 0) {
+            const noAppointmentsRow = `
+                <tr>
+                    <td colspan="6" class="fs-4 text-center">Không có lịch hẹn</td>
+                </tr>
+            `;
+            appointmentTable.innerHTML = noAppointmentsRow;
+        } else {
+            appointmentsData.forEach(appointment => {
             const row = `
-            <tr class="cursor-pointer" onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
-                <td>${i}</td>
-                <td class="text-start ${
-                    appointment.approval_status === 'pending'
-                        ? 'text-warning'
-                        : appointment.approval_status === 'approved'
-                        ? 'text-success'
-                        : 'text-danger'
-                }">
-                ${
-                    appointment.approval_status === 'approved'
-                        ? '<i class="fas fa-check-circle me-1"></i> <strong>Duyệt</strong>'
-                        : appointment.approval_status === 'rejected'
-                        ? '<i class="fas fa-times-circle me-1"></i> <strong>Từ chối</strong>'
-                        : '<i class="fas fa-hourglass-start me-1"></i> <strong>Đang chờ</strong>'
-                }</td>
-                <td class="text-start">${appointment.appointment_time}</td>
-                <td class="text-start">${appointment.facility_address}</td>
-                <td class="text-start">${appointment.doctor_name}</td>
-                <td>
-                    <a href="/admin/lich-hen/thong-tin/${ appointment.appointment_id }" class="text-decoration-none" title="Cập nhật thêm">
-                        <i class="fas fa-edit fs-5 text-teal-300 me-2"></i>
-                    </a>
-                    <a href="/admin/lich-hen/xoa/${ appointment.appointment_id }" class="text-decoration-none" title="Xóa" onclick="if(confirm('Bạn có chắc chắn muốn xóa lịch này không?'))">
-                        <i class="fas fa-trash fs-5 text-red-400"></i>
-                    </a>
-                </td>
-            </tr>
-            `
-            i++
-            appointmentTable.innerHTML += row
-        })
+                <tr class="cursor-pointer" onclick="window.location='/admin/lich-hen/thong-tin/${appointment.appointment_id}'">
+                    <td>${i}</td>
+                    <td class="text-start ${
+                        appointment.approval_status === 'pending'
+                            ? 'text-warning'
+                            : appointment.approval_status === 'approved'
+                            ? 'text-success'
+                            : 'text-danger'
+                    }">
+                    ${
+                        appointment.approval_status === 'approved'
+                            ? '<i class="fas fa-check-circle me-1"></i> <strong>Duyệt </strong>'
+                            : appointment.approval_status === 'rejected'
+                            ? '<i class="fas fa-times-circle me-1"></i> <strong>Từ chối </strong>'
+                            : '<i class="fas fa-hourglass-start me-1"></i> <strong>Đang chờ </strong>'
+                    }
+                        <span>[ ${appointment.updatedAt} ]</span>
+                    </td>
+                    <td class="text-start">${appointment.appointment_time}</td>
+                    <td class="text-start">${appointment.facility_address}</td>
+                    <td class="text-start">${appointment.doctor_name}</td>
+                    <td>
+                        <a href="/admin/lich-hen/thong-tin/${ appointment.appointment_id }">
+                            Xem chi tiết
+                        </a>
+                    </td>
+                </tr>
+                `
+                i++
+                appointmentTable.innerHTML += row
+            })
+        }
 
         paginationArea.innerHTML = `
             <ul class="pagination justify-content-end">

@@ -1,5 +1,5 @@
 import React from 'react';
-import DoctorList from '../components/Doctor/DoctorList';
+import DoctorList from '../components/DoctorList';
 
 const DoctorPage = () => {
   return (
@@ -11,4 +11,4 @@ const DoctorPage = () => {
   );
 };
 
-export default DoctorPage;
+export default DoctorPage

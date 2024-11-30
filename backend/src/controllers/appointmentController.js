@@ -65,6 +65,7 @@ const getAppointments = async (req, res) => {
       approval_status: app.approval_status,
       appointment_time: formatDate(app.appointment_time),
       facility_address: app.doctor.facility.address,
+      updatedAt: formatDate(app.updatedAt)
     }))
 
     return res.json({ appointmentsData, currentPage: page, totalPages })

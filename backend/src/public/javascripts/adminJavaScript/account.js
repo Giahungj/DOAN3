@@ -36,13 +36,13 @@ const loadAccountData = async (page) => {
             <ul class="pagination justify-content-end">
                 ${currentPage > 1 ? `
                     <li class="page-item">
-                        <a class="page-link" onclick="loadAppointmentData(${currentPage - 1})" href="#" aria-label="Previous">
+                        <a class="page-link" onclick="loadAccountData(${currentPage - 1})" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>`
                 : `
                     <li class="page-item disabled">
-                        <a class="page-link" onclick="loadAppointmentData(${currentPage})" href="#" aria-label="Previous">
+                        <a class="page-link" onclick="loadAccountData(${currentPage})" href="#" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>`
@@ -50,13 +50,13 @@ const loadAccountData = async (page) => {
 
                 ${Array.from({ length: totalPages }, (_, i) => i + 1).map(page => `
                     <li class="page-item ${page === currentPage ? 'active' : ''}">
-                        <a class="page-link" onclick="loadAppointmentData(${page})" href="#">${page}</a>
+                        <a class="page-link" onclick="loadAccountData(${page})" href="#">${page}</a>
                     </li>
                 `).join('')}
 
                 ${currentPage < totalPages ? `
                     <li class="page-item">
-                        <a class="page-link" onclick="loadAppointmentData(${currentPage + 1})" href="#" aria-label="Next">
+                        <a class="page-link" onclick="loadAccountData(${currentPage + 1})" href="#" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>`

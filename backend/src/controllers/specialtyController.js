@@ -5,6 +5,9 @@ import Doctor from '../models/doctorModel'
 import Specialty from '../models/specialtyModel'
 import DoctorSpecialty from '../models/doctorSpecialtyModel'
 
+// Định dạng
+import { formatDate } from '../utils/formatUtils'
+import { formatCurrency } from '../utils/formatUtils'
 // -----------------------------------------
 const getSpecialtiesPage = (req, res) => {
   return res.render('pages/special.ejs', { title: 'Trang chuyên khoa' })
@@ -41,7 +44,7 @@ const getSpecialties = async (req, res) => {
     const limit = 10
     const offset = (page - 1) * limit
     const specialties = await Specialty.findAll({
-      limit: 8,
+      limit: 10,
       offset: offset,
       include: [
         {
@@ -60,8 +63,8 @@ const getSpecialties = async (req, res) => {
         special_name: special.special_name,
         description: special.description,
         special_image: special.special_image,
-        created_at: special.createdAt,
-        updated_at: special.updatedAt,
+        created_at: formatDate(special.createdAt),
+        updated_at: formatDate(special.updatedAt),
         doctors: special.doctors.map(doctor => ({
           doctor_id: doctor.doctor_id
         }))
@@ -99,8 +102,8 @@ const getSpecialInfo = async(req, res, special_id) => {
       special_name: specialtyInfo.special_name,
       description: specialtyInfo.description,
       special_image: specialtyInfo.special_image,
-      created_at: specialtyInfo.createdAt,
-      updated_at: specialtyInfo.updatedAt,
+      created_at: formatDate(specialtyInfo.createdAt),
+      updated_at: formatDate(specialtyInfo.updatedAt),
     }
     console.log('Thông tin chi tiết chuyên khoa:', formattedSpecialtyInfo)
     return formattedSpecialtyInfo
