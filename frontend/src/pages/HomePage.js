@@ -3,14 +3,14 @@ import DoctorList from '../components/DoctorList'
 
 const HomePage = () => {
   return (
-    <div>
+    <main>
       <h1>Đây là Trang Chủ của hệ thống</h1>
-      <p>Học cách xây dựng hệ thống với React</p>
+      <p className='m-0'>Học cách xây dựng hệ thống với React</p>
+      <p className='m-0'>Bác sĩ nổi bật</p>
+      <p className='m-0'>Chuyên khoa nổi bật</p>
+      <p className='m-0'>Phòng khám nổi bật</p>
       <DoctorList />
-      <a href="http://localhost:6969/admin">
-        Chuyển đến trang Admin
-      </a>
-    </div>
+    </main>
   );
 };
 

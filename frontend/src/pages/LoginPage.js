@@ -11,9 +11,9 @@ const LoginPage = () => {
     e.preventDefault()
 
     // Kiểm tra thông tin đăng nhập
-    if (username === 'admin@example.com' && password === 'password') {
+    if (username === 'admin' && password === 'abc') {
       // Chuyển hướng đến trang DoctorPage nếu đăng nhập thành công
-      window.location.href = '/doctor'
+      window.location.href = '/'
     } else {
       setError('Sai tài khoản hoặc mật khẩu')
     }
